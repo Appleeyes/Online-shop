@@ -1,6 +1,6 @@
 <footer class="section-p1">
     <div class="col">
-        <img class="logo" src="img/logo.png" alt="">
+        <img class="logo" src="/Online-shop/public/images/logo.png" alt="">
         <h4>Contact</h4>
         <p><strong>Address:</strong>562 Wellington Road, Street 32, San Franscisco</p>
         <p><strong>Phone:</strong>+01 2222 365 /(+91) 01 2345 6789</p>
@@ -39,10 +39,10 @@
         <h4>Install App</h4>
         <p>From App Store or Google Play</p>
         <div class="row">
-            <img src="img/pay/app.jpg" alt="">
-            <img src="img/pay/play.jpg" alt="">
+            <img src="/Online-shop/public/images/pay/app.jpg" alt="">
+            <img src="/Online-shop/public/images/pay/play.jpg" alt="">
             <p>Secured Payment Gateways</p>
-            <img src="img/pay/pay.png" alt="">
+            <img src="/Online-shop/public/images/pay/pay.png" alt="">
         </div>
     </div>
 
@@ -52,6 +52,7 @@
 </footer>
 
 <script src="/Online-shop/public/js/script.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous"></script>
 </body>
 
 </html>

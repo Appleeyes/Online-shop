@@ -1,4 +1,5 @@
 <?php
+$activePage = '';
 require_once __DIR__ . '/../templates/header.php';
 require_once __DIR__ . '/../templates/navigation.php';
 ?>
@@ -12,8 +13,8 @@ require_once __DIR__ . '/../templates/navigation.php';
 </section>
 
 <section id="feature" class="section-p1">
-    <div class="fe-box">
-        <img src="/Online-shop/public/images/features/f1.png" alt="">
+    <div class="fe-box">features/f1.png
+        <img src="/Online-shop/public/images/" alt="">
         <h6>Free Shipping</h6>
     </div>
     <div class="fe-box">
@@ -344,17 +345,7 @@ require_once __DIR__ . '/../templates/navigation.php';
     </div>
 </section>
 
-<section id="newsletter" class="section-p1 section-m1">
-    <div class="newstext">
-        <h4>Sign Up For Newsletters</h4>
-        <p>Get E-mail updates about our lates shop and <span>special offers.</span></p>
-    </div>
-    <div class="form">
-        <input type="text" placeholder="Your email address">
-        <button class="normal">Sign Up</button>
-    </div>
-</section>
-
 <?php
+require_once __DIR__ . '/../templates/newsletter.php';
 require_once __DIR__ . '/../templates/footer.php';
 ?>

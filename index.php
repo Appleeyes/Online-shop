@@ -3,8 +3,9 @@ declare(strict_types=1);
 define('BASE_URL', '/Online-shop/');
 
 use OnlineShop\App\Router;
-use
-OnlineShop\Controllers\HomeController;
+use OnlineShop\Controllers\HomeController;
+use OnlineShop\Controllers\ProductController;
+
 
 session_start();
 require_once __DIR__ . "/vendor/autoload.php";
@@ -13,6 +14,8 @@ require_once __DIR__ . "/config/database.php";
 $router = new Router();
 
 $router->get(path:BASE_URL, handler:HomeController::class . '::execute');
+$router->get(path: BASE_URL . 'product', handler: ProductController::class . '::execute');
+$router->get(path: BASE_URL . 'product/form', handler: ProductController::class . '::showAddProductForm');
 
 $router->get(BASE_URL . 'about', function () {
     echo 'About Page';
