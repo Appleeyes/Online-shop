@@ -15,7 +15,8 @@ $router = new Router();
 
 $router->get(path:BASE_URL, handler:HomeController::class . '::execute');
 $router->get(path: BASE_URL . 'product', handler: ProductController::class . '::execute');
-$router->get(path: BASE_URL . 'product/form', handler: ProductController::class . '::showAddProductForm');
+$router->get(path: BASE_URL . 'product/add', handler: ProductController::class . '::showAddProductForm');
+$router->post(path: BASE_URL . 'product/add', handler: ProductController::class . '::addProduct');
 
 $router->get(BASE_URL . 'about', function () {
     echo 'About Page';

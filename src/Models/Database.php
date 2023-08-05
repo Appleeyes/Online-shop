@@ -2,6 +2,10 @@
 
 namespace OnlineShop\Models;
 
+error_reporting(E_ALL);
+ini_set('display_errors', 1);
+
+
 class Database
 {
     protected $pdo;
@@ -37,7 +41,7 @@ class Database
         }
     }
 
-    public function fetchAll($query, $params = []): bool
+    public function fetchAll($query, $params = []): array
     {
         try {
             $stmt = $this->pdo->prepare($query);
