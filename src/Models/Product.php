@@ -1,9 +1,11 @@
-<?php 
+<?php
 
 namespace OnlineShop\Models;
 
-error_reporting(E_ALL);
 ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+error_reporting(E_ALL);
+
 
 
 class Product
@@ -51,7 +53,27 @@ class Product
         }
     }
 
+    public function fetchProductById($product_id)
+    {
+        $query = "SELECT * FROM products WHERE product_id = ?";
+        return $this->db->fetch($query, [$product_id]);
+    }
+
+    public function update()
+    {
+        $data = [
+            'name' => $this->name,
+            'thumbnail' => $this->thumbnail,
+            'description' => $this->description,
+            'price' => $this->price,
+            'category_id' => $this->category_id,
+            'is_featured' => $this->is_featured,
+        ];
+
+        $condition = "product_id = :product_id";
+        $data['product_id'] = $this->product_id;
+
+        $db = new Database();
+        return $db->update('products', $data, $condition);
+    }
 }
-
-
-?>

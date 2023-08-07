@@ -2,8 +2,10 @@
 
 namespace OnlineShop\Models;
 
-error_reporting(E_ALL);
 ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+error_reporting(E_ALL);
+
 
 
 class Database
@@ -29,7 +31,7 @@ class Database
         }
     }
     
-    public function fetch($query, $params = []): bool
+    public function fetch($query, $params = [])
     {
         try {
             $stmt = $this->pdo->prepare($query);
@@ -85,6 +87,7 @@ class Database
 
         return $stmt->execute();
     }
+
 
     public function delete($table, $condition): bool
     {

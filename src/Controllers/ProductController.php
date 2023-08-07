@@ -3,6 +3,11 @@
 namespace OnlineShop\Controllers;
 use OnlineShop\Models\Product;
 
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+error_reporting(E_ALL);
+
+
 class ProductController
 {
     public function execute(): void
@@ -19,12 +24,84 @@ class ProductController
 
     public function addProduct()
     {
-        var_dump($_POST);
         // Handle form submission to add product
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             // Validate and sanitize input fields
 
             $product = new Product();
+            $product->name = $_POST['name'];
+            $product->description = $_POST['description'];
+            $product->price = $_POST['price'];
+            $product->category_id = $_POST['category_id'];
+            $product->is_featured = $_POST['is_featured'];
+
+            // Handle image upload
+            if ($_FILES['thumbnail']['error'] === UPLOAD_ERR_OK) {
+                $tempFilePath = $_FILES['thumbnail']['tmp_name'];
+                $fileName = $_FILES['thumbnail']['name'];
+                $product->thumbnail = 'images/' . $fileName; // Save relative path in the database
+
+                // Make sure the destination directory exists
+                $destinationPath = __DIR__ . '/../../../Online-shop/public/db-img/';
+                if (!is_dir($destinationPath)) {
+                    mkdir($destinationPath, 0777, true);
+                }
+
+                // make sure the file is an image
+                $allowed_files = ['png', 'jpg', 'jpeg'];
+                $extension = explode('.', $product->thumbnail);
+                $extension = end($extension);
+                if (in_array($extension, $allowed_files)) {
+                    // make sure image size is not too big
+                    if ($_FILES['thumbnail']['size'] < 3000000){
+                        // upload image
+                        move_uploaded_file($tempFilePath, $destinationPath . $fileName);
+                    } else {
+                        $_SESSION['error_message'] = "File size is too big. Should be less than 3mb";
+                    }
+                } else {
+                    $_SESSION['error_message'] = "File should be png, jpg, or jpeg";
+                }
+            } else {
+                $_SESSION['error_message'] = "No image uploaded";
+            }
+
+            // incase of error redirect back with form data
+            if (isset($_SESSION['error_message'])) {
+                $_SESSION['product-data'] = $_POST;
+                header('location: ' . BASE_URL . 'product/add');
+                die();
+            } else {
+                $result = $product->create();
+
+                if ($result) {
+                    $_SESSION['success_message'] = 'Product added successfully.';
+                    header('location: ' . BASE_URL . 'product/add');
+                    die();
+                }
+            }            
+        }
+    }
+
+
+    public function showUpdateProductForm()
+    {
+        $product_id = $_GET['id']; // Get product ID from query parameter
+        $product = new Product();
+        $categories = $product->getCategories();
+        $productData = $product->fetchProductById($product_id); // Fetch product data by ID
+        require_once __DIR__ . '/../Views/Products/updateProduct.php';
+    }
+
+    public function updateProduct()
+    {
+        var_dump('Update product method triggered');
+        var_dump($_POST);
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            // Validate and sanitize input fields
+
+            $product = new Product();
+            $product->product_id = $_POST['product_id'];
             $product->name = $_POST['name'];
             $product->thumbnail = $_POST['thumbnail'];
             $product->description = $_POST['description'];
@@ -32,14 +109,16 @@ class ProductController
             $product->category_id = $_POST['category_id'];
             $product->is_featured = $_POST['is_featured'];
 
-            $result = $product->create();
+            $result = $product->update();
 
             if ($result) {
-                header('location: '. BASE_URL . 'product/add');
+                header('location: ' . BASE_URL . 'product');
                 die();
             } else {
+                // Handle error, display message, or redirect
                 echo "ERROR!!!";
             }
         }
     }
+
 }
