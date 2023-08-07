@@ -39,6 +39,16 @@ class Product
         return $products;
     }
 
+    public function getFeaturedProducts($limit = 8)
+    {
+        $query = "SELECT p.*, c.title as category_title 
+          FROM products p 
+          JOIN categories c ON p.category_id = c.category_id 
+          WHERE p.is_featured = 0 
+          LIMIT 8";
+        $featuredProducts = $this->db->fetchAll($query);
+        return $featuredProducts;
+    }
 
     public function create()
     {
