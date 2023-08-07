@@ -31,6 +31,14 @@ class Product
         return $categories;
     }
 
+    public function getProducts(){
+        $query = "SELECT p.*, c.title AS category_title
+              FROM products AS p
+              JOIN categories AS c ON p.category_id = c.category_id";
+        $products = $this->db->fetchAll($query);
+        return $products;
+    }
+
 
     public function create()
     {

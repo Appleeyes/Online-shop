@@ -11,6 +11,9 @@ class ProductController
 {
     public function execute(): void
     {
+        $product = new Product();
+        $products = $product->getProducts();
+        $categories = $product->getCategories();
         require_once __DIR__ . '/../Views/Products/products.php';
     }
 
