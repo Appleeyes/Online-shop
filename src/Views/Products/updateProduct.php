@@ -4,6 +4,21 @@ require_once __DIR__ . '/../templates/navigation.php';
 ?>
 
 <div class="container my-5">
+    <!-- Display success message -->
+    <?php if (isset($_SESSION['success_message'])) : ?>
+        <div class="alert alert-success" role="alert">
+            <?php echo $_SESSION['success_message']; ?>
+        </div>
+        <?php unset($_SESSION['success_message']); ?>
+    <?php endif; ?>
+
+    <!-- Display error message -->
+    <?php if (isset($_SESSION['error_message'])) : ?>
+        <div class="alert alert-danger" role="alert">
+            <?php echo $_SESSION['error_message']; ?>
+        </div>
+        <?php unset($_SESSION['error_message']); ?>
+    <?php endif; ?>
     <h1 class="my-5">ADD NEW PRODUCT</h1>
     <hr>
     <div style="display: flex; width: 80%; background-color: #e3e6f3;; padding: 30px;">
@@ -12,6 +27,7 @@ require_once __DIR__ . '/../templates/navigation.php';
         <form style="width: 50%;" action="<?php echo BASE_URL; ?>product/update" method="POST" enctype="multipart/form-data">
             <div class="mb-3">
                 <input type="hidden" name="product_id" value="<?php echo $productData->product_id; ?>">
+                <input type="hidden" name="previous_thumbnail_name" value="<?php echo $productData->thumbnail; ?>">
                 <label style="font-weight: 800;" for="name" class="form-label">Name</label>
                 <input type="text" class="form-control" id="name" name="name" placeholder="Product Name" value="<?php echo $productData->name; ?>" required>
             </div>
@@ -34,7 +50,7 @@ require_once __DIR__ . '/../templates/navigation.php';
             </div>
             <div class="mb-3">
                 <label style="font-weight: 800;" for="price" class="form-label">Product Image</label>
-                <input type="file" class="form-control" id="thumbnail" name="thumbnail" value="<?php echo $productData->thumbnail; ?>" required>
+                <input type="file" class="form-control" id="thumbnail" name="thumbnail" required>
             </div>
             <div>
                 <label style="font-weight: 800;" for="price" class="form-label">Featured</label>
