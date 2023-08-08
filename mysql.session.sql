@@ -50,3 +50,6 @@ CREATE TABLE `orders` (
     is_active TINYINT(1) UNSIGNED NOT NULL DEFAULT 1 COMMENT '0 = not active, 1 = active',
     FOREIGN KEY(product_id) REFERENCES products(product_id) ON DELETE CASCADE
 );
+
+ALTER TABLE `products`
+ADD is_new TINYINT(1) UNSIGNED NOT NULL DEFAULT 1 COMMENT '0 = yes, 1 = no';

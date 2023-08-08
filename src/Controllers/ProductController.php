@@ -36,6 +36,7 @@ class ProductController
             $product->price = $_POST['price'];
             $product->category_id = $_POST['category_id'];
             $product->is_featured = $_POST['is_featured'];
+            $product->is_new = $_POST['is_new'];
 
             // Handle image upload
             if ($_FILES['thumbnail']['error'] === UPLOAD_ERR_OK) {
@@ -107,6 +108,7 @@ class ProductController
             $product->price = $_POST['price'];
             $product->category_id = $_POST['category_id'];
             $product->is_featured = $_POST['is_featured'];
+            $product->is_new = $_POST['is_new'];
             $previous_thumbnail_path = $_POST['previous_thumbnail_name'];
 
             $previous_thumbnail_name = basename($previous_thumbnail_path);

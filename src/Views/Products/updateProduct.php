@@ -63,6 +63,17 @@ require_once __DIR__ . '/../templates/navigation.php';
                 <input style="background-color: blue;" class="form-check-input" type="radio" name="is_featured" value="1" id="is_featured">
                 <label class="form-check-label" for="is_featured">No</label>
             </div>
+            <div>
+                <label style="font-weight: 800;" for="price" class="form-label">New Collection</label>
+            </div>
+            <div class="form-check form-check-inline">
+                <input style="background-color: blue;" class="form-check-input" type="radio" name="is_new" value="0" id="is_new" checked>
+                <label class="form-check-label" for="is_new">Yes</label>
+            </div>
+            <div class="form-check form-check-inline">
+                <input style="background-color: blue;" class="form-check-input" type="radio" name="is_new" value="1" id="is_new">
+                <label class="form-check-label" for="is_new">No</label>
+            </div>
             <div class="d-grid gap-2 col-6 mx-auto">
                 <button style="color: black; font-weight: 800;" class="btn btn-primary" type="submit">Update</button>
             </div>

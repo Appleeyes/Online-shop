@@ -17,7 +17,8 @@ class Product
     public $price;
     public $category_id;
     public $is_featured;
-    protected $db; // Add this property
+    public $is_new;
+    protected $db;
 
     public function __construct()
     {
@@ -50,6 +51,17 @@ class Product
         return $featuredProducts;
     }
 
+    public function getNewProducts($limit = 8)
+    {
+        $query = "SELECT p.*, c.title as category_title 
+          FROM products p 
+          JOIN categories c ON p.category_id = c.category_id 
+          WHERE p.is_new = 0 
+          LIMIT 8";
+        $newProducts = $this->db->fetchAll($query);
+        return $newProducts;
+    }
+
     public function create()
     {
         $data = [
@@ -59,6 +71,7 @@ class Product
             'price' => $this->price,
             'category_id' => $this->category_id,
             'is_featured' => $this->is_featured,
+            'is_new' => $this->is_new,
         ];
 
         $db = new Database();
@@ -86,6 +99,7 @@ class Product
             'price' => $this->price,
             'category_id' => $this->category_id,
             'is_featured' => $this->is_featured,
+            'is_new' => $this->is_new,
         ];
 
         $condition = "product_id = :product_id";
