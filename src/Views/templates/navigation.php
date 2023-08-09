@@ -8,7 +8,7 @@
             <li><a class="<?php if ($activePage === 'blog') echo 'active'; ?>" href="blog.html">Blog</a></li>
             <li><a class="<?php if ($activePage === 'about') echo 'active'; ?>" href="about.html">About</a></li>
             <li><a class="<?php if ($activePage === 'contact') echo 'active'; ?>" href="contact.html">Contact</a></li>
-            <li class="<?php if ($activePage === 'cart') echo 'active'; ?>" id="lg-ba"><a href="cart.html"><i class="fa-solid fa-bag-shopping"></i></a></li>
+            <li class='id="lg-ba"'><a class="<?php if ($activePage === 'cart') echo 'active'; ?>" href="<?= BASE_URL ?>cart"><i class="fa-solid fa-bag-shopping"></i></a></li>
             <a href="#" id="close"><i class="fas fa-times"></i></a>
         </ul>
     </div>

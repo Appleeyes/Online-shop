@@ -53,3 +53,14 @@ CREATE TABLE `orders` (
 
 ALTER TABLE `products`
 ADD is_new TINYINT(1) UNSIGNED NOT NULL DEFAULT 1 COMMENT '0 = yes, 1 = no';
+
+
+CREATE TABLE carts (
+    cart_id INT AUTO_INCREMENT PRIMARY KEY,
+    user_id INT NOT NULL,
+    product_id INT NOT NULL,
+    size VARCHAR(10),
+    quantity INT,
+    FOREIGN KEY (user_id) REFERENCES users(user_id),
+    FOREIGN KEY (product_id) REFERENCES products(product_id)
+);

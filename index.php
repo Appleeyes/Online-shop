@@ -5,6 +5,7 @@ define('BASE_URL', '/Online-shop/');
 use OnlineShop\App\Router;
 use OnlineShop\Controllers\HomeController;
 use OnlineShop\Controllers\ProductController;
+use OnlineShop\Controllers\CartController;
 
 
 session_start();
@@ -17,9 +18,11 @@ $router->get(path: BASE_URL, handler:HomeController::class . '::execute');
 $router->get(path: BASE_URL . 'product', handler: ProductController::class . '::execute');
 $router->get(path: BASE_URL . 'product/add', handler: ProductController::class . '::showAddProductForm');
 $router->post(path: BASE_URL . 'product/add', handler: ProductController::class . '::addProduct');
-$router->get(BASE_URL . 'product/update', handler: ProductController::class . '::showUpdateProductForm');
-$router->post(BASE_URL . 'product/update', handler: ProductController::class . '::UpdateProduct');
-$router->get(BASE_URL . 'product/details', handler: ProductController::class . '::showProductDetails');
+$router->get(path: BASE_URL . 'product/update', handler: ProductController::class . '::showUpdateProductForm');
+$router->post(path: BASE_URL . 'product/update', handler: ProductController::class . '::UpdateProduct');
+$router->get(path: BASE_URL . 'product/details', handler: ProductController::class . '::showProductDetails');
+$router->get(path: BASE_URL . 'cart', handler: CartController::class . '::execute');
+
 
 
 $router->get(BASE_URL . 'about', function () {
