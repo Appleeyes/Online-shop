@@ -47,7 +47,8 @@ ini_set('display_errors', 1);
     <p>Summer Collection New Morden Design</p>
     <div class="pro-container">
         <?php foreach ($featuredProducts as $product) : ?>
-            <div class="pro">
+            <input type="hidden" name="product_id" value="<?php echo $product->product_id; ?>">
+            <div class="pro" onclick="window.location.href='product/details?id=<?php echo $product->product_id; ?>';">
                 <img src="<?php echo BASE_URL . 'public/db-img/' . basename($product->thumbnail); ?>" alt="">
                 <div class="des">
                     <span><?php echo $product->category_title; ?></span>
@@ -78,7 +79,8 @@ ini_set('display_errors', 1);
     <p>Summer Collection New Morden Design</p>
     <div class="pro-container">
         <?php foreach ($newProducts as $products) : ?>
-            <div class="pro">
+            <input type="hidden" name="product_id" value="<?php echo $products->product_id; ?>">
+            <div class="pro" onclick="window.location.href='product/details?id=<?php echo $products->product_id; ?>';">
                 <img src="<?php echo BASE_URL . 'public/db-img/' . basename($products->thumbnail); ?>" alt="">
                 <div class="des">
                     <span><?php echo $products->category_title; ?></span>

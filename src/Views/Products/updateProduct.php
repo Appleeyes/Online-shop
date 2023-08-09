@@ -33,7 +33,7 @@ require_once __DIR__ . '/../templates/navigation.php';
             </div>
             <div class="mb-3">
                 <label style="font-weight: 800;" for="description" class="form-label">Description</label>
-                <input type="text" class="form-control" id="description" name="description" placeholder="Product Description" value="<?php echo $productData->description; ?>" required>
+                <textarea class="form-control" rows="10" name="description" placeholder="Product Description" required><?= $productData->description ?></textarea>
             </div>
             <div class="mb-3">
                 <label style="font-weight: 800;" for="price" class="form-label">Price</label>
@@ -50,7 +50,7 @@ require_once __DIR__ . '/../templates/navigation.php';
             </div>
             <div class="mb-3">
                 <label style="font-weight: 800;" for="price" class="form-label">Product Image</label>
-                <input type="file" class="form-control" id="thumbnail" name="thumbnail" required>
+                <input type="file" class="form-control" id="thumbnail" name="thumbnail">
             </div>
             <div>
                 <label style="font-weight: 800;" for="price" class="form-label">Featured</label>

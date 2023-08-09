@@ -12,7 +12,8 @@ require_once __DIR__ . '/../templates/navigation.php';
 <section id="product1" class="section-p1">
     <div class="pro-container">
         <?php foreach ($products as $product) : ?>
-            <div class="pro" onclick="window.location.href='sproduct.html';">
+            <input type="hidden" name="product_id" value="<?php echo $product->product_id; ?>">
+            <div class="pro" onclick="window.location.href='product/details?id=<?php echo $product->product_id; ?>';">
                 <img src="<?php echo BASE_URL . 'public/db-img/' . basename($product->thumbnail); ?>" alt="">
                 <div class="des">
                     <span><?php echo $product->category_title; ?></span>

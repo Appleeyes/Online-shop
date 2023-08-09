@@ -86,7 +86,7 @@ class Product
 
     public function fetchProductById($product_id)
     {
-        $query = "SELECT * FROM products WHERE product_id = ?";
+        $query = "SELECT p.*, c.title as category_title FROM products p JOIN categories c ON p.category_id = c.category_id WHERE p.product_id = ?";
         return $this->db->fetch($query, [$product_id]);
     }
 

@@ -38,7 +38,7 @@ unset($_SESSION['product-data']);
             </div>
             <div class="mb-3">
                 <label style="font-weight: 800;" for="description" class="form-label">Description</label>
-                <input type="text" class="form-control" id="description" name="description" value="<?= $description ?>" placeholder="Product Description" required>
+                <textarea class="form-control" rows="10" name="description" placeholder="Product Description" required></textarea>
             </div>
             <div class="mb-3">
                 <label style="font-weight: 800;" for="price" class="form-label">Price</label>

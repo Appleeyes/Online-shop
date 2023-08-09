@@ -13,12 +13,13 @@ require_once __DIR__ . "/config/database.php";
 
 $router = new Router();
 
-$router->get(path:BASE_URL, handler:HomeController::class . '::execute');
+$router->get(path: BASE_URL, handler:HomeController::class . '::execute');
 $router->get(path: BASE_URL . 'product', handler: ProductController::class . '::execute');
 $router->get(path: BASE_URL . 'product/add', handler: ProductController::class . '::showAddProductForm');
 $router->post(path: BASE_URL . 'product/add', handler: ProductController::class . '::addProduct');
 $router->get(BASE_URL . 'product/update', handler: ProductController::class . '::showUpdateProductForm');
 $router->post(BASE_URL . 'product/update', handler: ProductController::class . '::UpdateProduct');
+$router->get(BASE_URL . 'product/details', handler: ProductController::class . '::showProductDetails');
 
 
 $router->get(BASE_URL . 'about', function () {

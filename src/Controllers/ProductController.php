@@ -13,7 +13,6 @@ class ProductController
     {
         $product = new Product();
         $products = $product->getProducts();
-        $categories = $product->getCategories();
         require_once __DIR__ . '/../Views/Products/products.php';
     }
 
@@ -89,10 +88,10 @@ class ProductController
 
     public function showUpdateProductForm()
     {
-        $product_id = $_GET['id']; // Get product ID from query parameter
+        $product_id = $_GET['id']; 
         $product = new Product();
         $categories = $product->getCategories();
-        $productData = $product->fetchProductById($product_id); // Fetch product data by ID
+        $productData = $product->fetchProductById($product_id);
         require_once __DIR__ . '/../Views/Products/updateProduct.php';
     }
 
@@ -177,5 +176,14 @@ class ProductController
                 }
             }
         }
+    }
+
+    public function showProductDetails()
+    {
+        $product_id = $_GET['id'];
+        $product = new Product();
+        $productDetails = $product->fetchProductById($product_id);
+        $featuredProducts = $product->getFeaturedProducts(8);
+        require_once __DIR__ . '/../Views/Products/productDetails.php';
     }
 }
