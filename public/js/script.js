@@ -17,3 +17,23 @@ if (close) {
 }
 
 // Navbar ends
+
+// hide or show password
+
+document.getElementById("showPassword").addEventListener("change", function () {
+  var passwordInput = document.getElementById("password");
+  if (this.checked) {
+    passwordInput.type = "text";
+  } else {
+    passwordInput.type = "password";
+  }
+});
+
+document.getElementById("showPassword1").addEventListener("change", function () {
+  var passwordInput = document.getElementById("confirm_password");
+  if (this.checked) {
+    passwordInput.type = "text";
+  } else {
+    passwordInput.type = "password";
+  }
+});

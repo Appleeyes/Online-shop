@@ -23,7 +23,7 @@ class ProductController
         require_once __DIR__ . '/../Views/Products/addProduct.php';
     }
 
-    public function addProduct()
+    public function addProduct(): void
     {
         // Handle form submission to add product
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {

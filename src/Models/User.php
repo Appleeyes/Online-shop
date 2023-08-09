@@ -50,4 +50,12 @@ class User
             return false;
         }
     }
+
+    public static function getUserByEmail($email)
+    {
+        $db = new Database();
+        $query = "SELECT * FROM users WHERE email = :email";
+        $params = ['email' => $email];
+        return $db->fetch($query, $params);
+    }
 }

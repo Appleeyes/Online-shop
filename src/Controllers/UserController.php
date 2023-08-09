@@ -76,4 +76,35 @@ class UserController
         } 
     }
 
+    public function showUserLoginForm(): void
+    {
+        require_once __DIR__ . '/../Views/Users/users/login.php';
+    }
+
+    public function loginUser():void
+    {
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            $email = $_POST['email'];
+            $password = $_POST['password'];
+
+            // Fetch user by email
+            $user = User::getUserByEmail($email);
+
+            if ($user && password_verify($password, $user->password)) {
+                $_SESSION['user_id'] = $user->user_id;
+                $_SESSION['user_fullname'] = $user->fullname;
+                $_SESSION['success_message'] = 'You are successfully logeed in.';
+                header('Location: ' . BASE_URL . 'product');
+                exit();
+            } else {
+                $_SESSION['error_message'] = 'Invalid email or password.';
+            }
+
+            if (isset($_SESSION['error_message'])) {
+                $_SESSION['login-data'] = $_POST;
+                header('location: ' . BASE_URL . 'login');
+                die();
+            }
+        }
+    }
 }

@@ -10,6 +10,13 @@ require_once __DIR__ . '/../templates/navigation.php';
 </section>
 
 <section id="product1" class="section-p1">
+    <!-- Display success message -->
+    <?php if (isset($_SESSION['success_message'])) : ?>
+        <div class="alert alert-success" role="alert">
+            <?php echo $_SESSION['success_message']; ?>
+        </div>
+        <?php unset($_SESSION['success_message']); ?>
+    <?php endif; ?>
     <div class="pro-container">
         <?php foreach ($products as $product) : ?>
             <input type="hidden" name="product_id" value="<?php echo $product->product_id; ?>">
