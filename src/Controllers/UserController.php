@@ -87,13 +87,15 @@ class UserController
             $email = $_POST['email'];
             $password = $_POST['password'];
 
-            // Fetch user by email
-            $user = User::getUserByEmail($email);
+            $user = new User();
+            $userData = $user->getUserByEmail($email);
 
-            if ($user && password_verify($password, $user->password)) {
-                $_SESSION['user_id'] = $user->user_id;
-                $_SESSION['user_fullname'] = $user->fullname;
-                $_SESSION['success_message'] = 'You are successfully logeed in.';
+            if ($userData && password_verify($password, $userData->password)) {
+                // Login successful, store user data in session
+                $_SESSION['user_id'] = $userData->user_id;
+                $_SESSION['user_thumbnail'] = $userData->thumbnail;
+                $_SESSION['user_fullname'] = $userData->fullname;
+                $_SESSION['success_message'] = 'You are successfully logged in.';
                 header('Location: ' . BASE_URL . 'product');
                 exit();
             } else {
@@ -107,4 +109,16 @@ class UserController
             }
         }
     }
+
+    public function logoutUser(): void
+    {
+        session_start();
+        $_SESSION = array();
+
+        session_destroy();
+
+        header('Location: ' . BASE_URL . 'product');
+        exit();
+    }
+
 }

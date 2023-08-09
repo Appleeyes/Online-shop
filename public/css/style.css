@@ -1244,3 +1244,12 @@ footer .copyright {
       padding: 20px;
     }
 }
+
+
+/* user thumbnail */
+.user-thumb img{
+  width: 2.5rem;
+  height: 2.5rem;
+  border-radius: 50px;
+  overflow: hidden;
+}

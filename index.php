@@ -25,6 +25,7 @@ $router->get(path: BASE_URL . 'product/details', handler: ProductController::cla
 $router->get(path: BASE_URL . 'register', handler: UserController::class . '::showUserRegisterForm');
 $router->post(path: BASE_URL . 'register/add', handler: UserController::class . '::registerUser');
 $router->get(path: BASE_URL . 'login', handler: UserController::class . '::showUserLoginForm');
+$router->get(path: BASE_URL . 'logout', handler: UserController::class . '::logoutUser');
 $router->post(path: BASE_URL . 'login/add', handler: UserController::class . '::loginUser');
 $router->get(path: BASE_URL . 'cart', handler: CartController::class . '::execute');
 
