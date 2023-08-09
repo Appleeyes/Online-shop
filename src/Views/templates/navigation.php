@@ -8,7 +8,7 @@
             <li><a class="<?php if ($activePage === 'blog') echo 'active'; ?>" href="">Blog</a></li>
             <li><a class="<?php if ($activePage === 'about') echo 'active'; ?>" href="">About</a></li>
             <li><a class="<?php if ($activePage === 'contact') echo 'active'; ?>" href="">Contact</a></li>
-            <li class='id="lg-ba"'><a class="<?php if ($activePage === 'cart') echo 'active'; ?>" href="<?= BASE_URL ?>cart"><i class="fa-solid fa-bag-shopping"></i></a></li>
+            <li class='id="lg-ba"'><a class="<?php if ($activePage === 'cart') echo 'active'; ?>" href="<?php echo isset($_SESSION['user_id']) ? BASE_URL . 'cart' : BASE_URL . 'login'; ?>"><i class="fa-solid fa-bag-shopping"></i></a></li>
             <?php if (isset($_SESSION['user_id'])) : ?>
                 <!-- User is logged in -->
                 <li><a href="<?= BASE_URL ?>logout">Logout</a></li>
@@ -21,7 +21,7 @@
                 <a href="#" id="close"><i class="fas fa-times"></i></a>
             <?php else : ?>
                 <!-- User is not logged in -->
-                <li><a href="<?= BASE_URL ?>login">Log In</a></li>
+                <li><a href="<?= BASE_URL ?>login">Log-In</a></li>
                 <li><a href="<?= BASE_URL ?>register">Register</a></li>
                 <a href="#" id="close"><i class="fas fa-times"></i></a>
             <?php endif; ?>
