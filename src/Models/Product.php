@@ -78,7 +78,6 @@ class Product
         try {
             return $db->insert('products', $data);
         } catch (\PDOException $e) {
-            // Handle the error, e.g. log it or display a user-friendly message
             die('<p class="error">Product insertion failed: ' . $e->getMessage() . '</p>');
             return false;
         }

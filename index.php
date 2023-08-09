@@ -6,6 +6,7 @@ use OnlineShop\App\Router;
 use OnlineShop\Controllers\HomeController;
 use OnlineShop\Controllers\ProductController;
 use OnlineShop\Controllers\CartController;
+use OnlineShop\Controllers\UserController;
 
 
 session_start();
@@ -21,6 +22,8 @@ $router->post(path: BASE_URL . 'product/add', handler: ProductController::class 
 $router->get(path: BASE_URL . 'product/update', handler: ProductController::class . '::showUpdateProductForm');
 $router->post(path: BASE_URL . 'product/update', handler: ProductController::class . '::UpdateProduct');
 $router->get(path: BASE_URL . 'product/details', handler: ProductController::class . '::showProductDetails');
+$router->get(path: BASE_URL . 'register', handler: UserController::class . '::showUserRegisterForm');
+$router->post(path: BASE_URL . 'register/add', handler: UserController::class . '::registerUser');
 $router->get(path: BASE_URL . 'cart', handler: CartController::class . '::execute');
 
 
