@@ -32,4 +32,15 @@ class Cart
             die('<p class="error">Failed to add product to cart: ' . $e->getMessage() . '</p>');
         }
     }
+
+    public function getUserCartItems($user_id)
+    {
+        $query = "SELECT carts.cart_id, products.thumbnail, products.name, products.price, carts.quantity, (products.price * carts.quantity) AS subtotal
+                  FROM carts
+                  JOIN products ON carts.product_id = products.product_id
+                  WHERE carts.user_id = :user_id";
+        $params = [':user_id' => $user_id];
+
+        return $this->db->fetchAll($query, $params);
+    }
 }

@@ -27,30 +27,16 @@ ini_set('display_errors', 1);
             </tr>
         </thead>
         <tbody>
-            <tr>
-                <td><i class="far fa-times-circle"></i><a href="#"></a></td>
-                <td><img src="img/products/f1.jpg" alt=""></td>
-                <td>Cartoon Astronaut T-Shirts</td>
-                <td>$118.19</td>
-                <td><input type="number" value="1"></td>
-                <td>$118.19</td>
-            </tr>
-            <tr>
-                <td><i class="far fa-times-circle"></i><a href="#"></a></td>
-                <td><img src="img/products/f2.jpg" alt=""></td>
-                <td>Cartoon Astronaut T-Shirts</td>
-                <td>$118.19</td>
-                <td><input type="number" value="1"></td>
-                <td>$118.19</td>
-            </tr>
-            <tr>
-                <td><i class="far fa-times-circle"></i><a href="#"></a></td>
-                <td><img src="img/products/f3.jpg" alt=""></td>
-                <td>Cartoon Astronaut T-Shirts</td>
-                <td>$118.19</td>
-                <td><input type="number" value="1"></td>
-                <td>$118.19</td>
-            </tr>
+            <?php foreach ($cartItems as $item) : ?>
+                <tr>
+                    <td><a href="<?= BASE_URL . 'cart/remove?cart_id=' . $item->cart_id ?>"><i class="far fa-times-circle"></i></a></td>
+                    <td><img src="<?= BASE_URL . 'public/db-img/' . basename($item->thumbnail) ?>" alt="<?= $item->name ?>"></td>
+                    <td><?= $item->name ?></td>
+                    <td>$<?= $item->price ?></td>
+                    <td><?= $item->quantity ?></td>
+                    <td>$<?= $item->subtotal ?></td>
+                </tr>
+            <?php endforeach; ?>
         </tbody>
     </table>
 </section>
@@ -69,7 +55,7 @@ ini_set('display_errors', 1);
         <table>
             <tr>
                 <td>Cart Subtotal</td>
-                <td>$ 335</td>
+                <td>$<?= $item->subtotal ?></td>
             </tr>
             <tr>
                 <td>Shipping</td>
@@ -77,7 +63,7 @@ ini_set('display_errors', 1);
             </tr>
             <tr>
                 <td><strong>Total</strong></td>
-                <td><strong>$ 335</strong></td>
+                <td><strong>$<?= $item->subtotal ?></strong></td>
             </tr>
         </table>
         <button class="normal">Proceed to checkout</button>

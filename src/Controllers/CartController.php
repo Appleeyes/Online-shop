@@ -7,6 +7,10 @@ class CartController
 {
     public function execute(): void
     {
+        $user_id = $_SESSION['user_id'];
+
+        $cart = new Cart();
+        $cartItems = $cart->getUserCartItems($user_id);
         
         require_once __DIR__ . '/../Views/Cart/cart.php';
     }
