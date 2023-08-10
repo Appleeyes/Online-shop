@@ -27,15 +27,18 @@ require_once __DIR__ . '/../templates/navigation.php';
         <h6><?php echo $productDetails->category_title; ?></h6>
         <h4><?php echo $productDetails->name; ?></h4>
         <h2>$<?php echo $productDetails->price; ?></h2>
-        <select>
-            <option>Select Size</option>
-            <option>XL</option>
-            <option>XXL</option>
-            <option>Small</option>
-            <option>Large</option>
-        </select>
-        <input type="number" value="1">
-        <button class="normal">Add To Cart</button>
+        <form action="<?php echo BASE_URL . 'cart/add'; ?>" method="post">
+            <input type="hidden" name="product_id" value="<?php echo $productDetails->product_id; ?>">
+            <select name="size">
+                <option>Select Size</option>
+                <option>XL</option>
+                <option>XXL</option>
+                <option>Small</option>
+                <option>Large</option>
+            </select>
+            <input type="number" name="quantity" value="1">
+            <button type="submit" class="normal">Add To Cart</button>
+        </form>
         <h4>Product Details</h4>
         <span><?php echo $productDetails->description; ?></span>
     </div>

@@ -28,6 +28,8 @@ $router->get(path: BASE_URL . 'login', handler: UserController::class . '::showU
 $router->get(path: BASE_URL . 'logout', handler: UserController::class . '::logoutUser');
 $router->post(path: BASE_URL . 'login/add', handler: UserController::class . '::loginUser');
 $router->get(path: BASE_URL . 'cart', handler: CartController::class . '::execute');
+$router->post(path: BASE_URL . 'cart/add', handler: CartController::class . '::addProductToCart');
+
 
 
 
