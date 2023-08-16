@@ -1,7 +1,9 @@
 <?php
 
 namespace OnlineShop\Controllers;
+
 use OnlineShop\Models\Cart;
+use OnlineShop\Models\PayPal;
 
 class CartController
 {
@@ -11,7 +13,8 @@ class CartController
 
         $cart = new Cart();
         $cartItems = $cart->getUserCartItems($user_id);
-        
+        $totalAmount = $this->calculateTotal();
+
         require_once __DIR__ . '/../Views/Cart/cart.php';
     }
 
@@ -33,7 +36,59 @@ class CartController
             }
         }
     }
+
+    public function calculateTotal()
+    {
+        $cartModel = new Cart();
+        $userId = $_SESSION['user_id'];
+
+        // Get cart items for the logged-in user
+        $cartItems = $cartModel->getUserCartItems($userId);
+
+        // Calculate the total cart amount
+        $totalAmount = 0;
+        foreach ($cartItems as $item) {
+            $totalAmount += $item->subtotal;
+        }
+
+        return $totalAmount;
+    }
+
+    public function showCheckoutPage(): void
+    {
+        $cartModel = new Cart();
+        $userId = $_SESSION['user_id'];
+        $cartItems = $cartModel->getUserCartItems($userId);
+        require_once __DIR__ . '/../Views/Cart/checkout.php';
+    }
+
+    public function processCheckout()
+    {
+        // Validate form data here
+
+        // Store form data in the session for further processing
+        $_SESSION['checkout_data'] = $_POST;
+
+        // Redirect to payment gateway based on selected payment method
+        if ($_POST['payment_method'] === 'paypal') {
+            $totalAmount = $this->calculateTotal();
+            $paypal = new PayPal();
+            $order = $paypal->createOrder($totalAmount);
+            
+            if (isset($order['links'][1]['href'])) {
+                // Redirect user to PayPal payment page
+                header('Location: ' . $order['links'][1]['href']);
+                exit();
+            } else {
+                $_SESSION['error_message'] = 'Error creating PayPal order.';
+                header('Location: ' . BASE_URL . 'cart/checkout');
+                exit();
+            }
+        }
+    }
 }
 
 
 ?>
+
+

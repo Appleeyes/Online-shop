@@ -1,3 +1,17 @@
+<?php
+
+use OnlineShop\Models\Cart;
+
+$cartModel = new Cart();
+$cartCount = 0; // Default value
+
+// Check if the user is logged in
+if (isset($_SESSION['user_id'])) {
+    // Get the cart count for the logged-in user
+    $cartCount = $cartModel->getCartCount($_SESSION['user_id']);
+}
+?>
+
 <section id="header">
     <a href="#"><img src="/Online-shop/public/images/logo.png" class="logo" alt=""></a>
 
@@ -23,7 +37,11 @@
                 <li><a href="<?= BASE_URL ?>register">Register</a></li>
                 <a href="#" id="close"><i class="fas fa-times"></i></a>
             <?php endif; ?>
-            <li class='id="lg-ba"'><a class="<?php if ($activePage === 'cart') echo 'active'; ?>" href="<?php echo isset($_SESSION['user_id']) ? BASE_URL . 'cart' : BASE_URL . 'login'; ?>"><i class="fa-solid fa-bag-shopping"></i></a></li>
+            <li class='id="lg-ba"'>
+                <a class="<?php if ($activePage === 'cart') echo 'active'; ?>" href="<?php echo isset($_SESSION['user_id']) ? BASE_URL . 'cart' : BASE_URL . 'login'; ?>"><i class="fa-solid fa-bag-shopping"></i>
+                <?php echo $cartCount; ?>
+                </a>
+            </li>
         </ul>
     </div>
 

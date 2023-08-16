@@ -25,14 +25,15 @@ class Product
         $this->db = new Database();
     }
 
-    public function getCategories()
+    public function getCategories(): array
     {
         $query = "SELECT * FROM categories";
         $categories = $this->db->fetchAll($query);
         return $categories;
     }
 
-    public function getProducts(){
+    public function getProducts(): array
+    {
         $query = "SELECT p.*, c.title AS category_title
               FROM products AS p
               JOIN categories AS c ON p.category_id = c.category_id";
@@ -40,7 +41,7 @@ class Product
         return $products;
     }
 
-    public function getFeaturedProducts($limit = 8)
+    public function getFeaturedProducts($limit = 8): array
     {
         $query = "SELECT p.*, c.title as category_title 
           FROM products p 
@@ -51,7 +52,7 @@ class Product
         return $featuredProducts;
     }
 
-    public function getNewProducts($limit = 8)
+    public function getNewProducts($limit = 8): array
     {
         $query = "SELECT p.*, c.title as category_title 
           FROM products p 
@@ -62,7 +63,7 @@ class Product
         return $newProducts;
     }
 
-    public function create()
+    public function create(): bool
     {
         $data = [
             'name' => $this->name,
@@ -89,7 +90,7 @@ class Product
         return $this->db->fetch($query, [$product_id]);
     }
 
-    public function update()
+    public function update(): bool
     {
         $data = [
             'name' => $this->name,

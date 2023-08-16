@@ -43,4 +43,14 @@ class Cart
 
         return $this->db->fetchAll($query, $params);
     }
+
+    public function getCartCount($user_id)
+    {
+        $query = "SELECT COUNT(*) as count FROM carts WHERE user_id = :user_id";
+        $result = $this->db->fetch($query, ['user_id' => $user_id]);
+
+        return $result->count;
+    }
+
+    
 }

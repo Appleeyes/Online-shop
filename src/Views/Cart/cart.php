@@ -55,7 +55,7 @@ ini_set('display_errors', 1);
         <table>
             <tr>
                 <td>Cart Subtotal</td>
-                <td>$<?= $item->subtotal ?></td>
+                <td>$<?php echo $totalAmount; ?></td>
             </tr>
             <tr>
                 <td>Shipping</td>
@@ -63,10 +63,10 @@ ini_set('display_errors', 1);
             </tr>
             <tr>
                 <td><strong>Total</strong></td>
-                <td><strong>$<?= $item->subtotal ?></strong></td>
+                <td><strong>$<?php echo $totalAmount; ?></strong></td>
             </tr>
         </table>
-        <button class="normal">Proceed to checkout</button>
+        <a href="<?php echo BASE_URL . 'cart/checkout'; ?>"><button class="normal">Proceed to checkout</button></a>
     </div>
 </section>
 
