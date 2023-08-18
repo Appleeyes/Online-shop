@@ -7,6 +7,7 @@ use OnlineShop\Controllers\HomeController;
 use OnlineShop\Controllers\ProductController;
 use OnlineShop\Controllers\CartController;
 use OnlineShop\Controllers\UserController;
+use OnlineShop\Controllers\OrderController;
 
 
 session_start();
@@ -29,8 +30,10 @@ $router->get(path: BASE_URL . 'logout', handler: UserController::class . '::logo
 $router->post(path: BASE_URL . 'login/add', handler: UserController::class . '::loginUser');
 $router->get(path: BASE_URL . 'cart', handler: CartController::class . '::execute');
 $router->post(path: BASE_URL . 'cart/add', handler: CartController::class . '::addProductToCart');
+$router->post(path: BASE_URL . 'cart/add', handler: CartController::class . '::addProductToCart');
 $router->get(path: BASE_URL . 'cart/checkout', handler: CartController::class . '::showCheckoutpage');
 $router->post(path: BASE_URL . 'cart/process-checkout', handler: CartController::class . '::processCheckout');
+$router->post(path: BASE_URL . 'order', handler: OrderController::class . '::addProductToOrder');
 
 
 

@@ -1,7 +1,6 @@
 <?php
 
 namespace OnlineShop\Controllers;
-
 use OnlineShop\Models\Cart;
 use OnlineShop\Models\PayPal;
 
@@ -14,7 +13,6 @@ class CartController
         $cart = new Cart();
         $cartItems = $cart->getUserCartItems($user_id);
         $totalAmount = $this->calculateTotal();
-
         require_once __DIR__ . '/../Views/Cart/cart.php';
     }
 
@@ -30,6 +28,10 @@ class CartController
             $result = $cart->addProduct($user_id, $product_id, $size, $quantity);
 
             if ($result) {
+                // Add the product to the order as well
+                $orderController = new OrderController();
+                $orderController->addProductToOrder($size, $quantity, $product_id);
+
                 $_SESSION['success_message'] = 'Product added to cart successfully.';
                 header('location: ' . BASE_URL . 'product');
                 exit();

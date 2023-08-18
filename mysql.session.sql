@@ -42,12 +42,11 @@ CREATE TABLE `reviews` (
 -- ORDERS TABLE
 CREATE TABLE `orders` (
     order_id INT AUTO_INCREMENT PRIMARY KEY,
-    name VARCHAR(50) NOT NULL,
     size VARCHAR(50) NOT NULL,
     quantity TINYINT NOT NULL,
     subtotal DECIMAL(10,2) NOT NULL,
     product_id INT NOT NULL,
-    is_active TINYINT(1) UNSIGNED NOT NULL DEFAULT 1 COMMENT '0 = not active, 1 = active',
+    is_paid TINYINT(1) UNSIGNED NOT NULL DEFAULT 1 COMMENT '0 = not paid, 1 = paid',
     FOREIGN KEY(product_id) REFERENCES products(product_id) ON DELETE CASCADE
 );
 

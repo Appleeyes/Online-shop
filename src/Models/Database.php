@@ -88,11 +88,25 @@ class Database
         return $stmt->execute();
     }
 
-
     public function delete($table, $condition): bool
     {
         $query = "DELETE FROM $table WHERE $condition";
         return $this->pdo->exec($query);
+    }
+
+    public function beginTransaction()
+    {
+        return $this->pdo->beginTransaction();
+    }
+
+    public function commit()
+    {
+        return $this->pdo->commit();
+    }
+
+    public function rollBack()
+    {
+        return $this->pdo->rollBack();
     }
 }
 

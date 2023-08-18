@@ -21,6 +21,7 @@ ini_set('display_errors', 1);
                 <td>Remove</td>
                 <td>Image</td>
                 <td>Product</td>
+                <td>Size</td>
                 <td>Price</td>
                 <td>Quantity</td>
                 <td>Subtotal</td>
@@ -32,6 +33,7 @@ ini_set('display_errors', 1);
                     <td><a href="<?= BASE_URL . 'cart/remove?cart_id=' . $item->cart_id ?>"><i class="far fa-times-circle"></i></a></td>
                     <td><img src="<?= BASE_URL . 'public/db-img/' . basename($item->thumbnail) ?>" alt="<?= $item->name ?>"></td>
                     <td><?= $item->name ?></td>
+                    <td><?= $item->size ?></td>
                     <td>$<?= $item->price ?></td>
                     <td><?= $item->quantity ?></td>
                     <td>$<?= $item->subtotal ?></td>
@@ -66,7 +68,14 @@ ini_set('display_errors', 1);
                 <td><strong>$<?php echo $totalAmount; ?></strong></td>
             </tr>
         </table>
-        <a href="<?php echo BASE_URL . 'cart/checkout'; ?>"><button class="normal">Proceed to checkout</button></a>
+        <form action="<?php echo BASE_URL . 'order'; ?>" method="POST">
+            <input type="hidden" name="name" value="<?php echo $cartItems->name; ?>">
+            <input type="hidden" name="size" value="<?php echo $cartItems->size; ?>">
+            <input type="hidden" name="quantity" value="<?php echo $cartItems->quantity; ?>">
+            <input type="hidden" name="subtotal" value="<?php echo $cartItems->subtotal; ?>">
+            <input type="hidden" name="product_id" value="<?php echo $cartItems->subtotal; ?>">
+            <button type="submit" class="normal">Proceed to checkout</button>
+        </form>
     </div>
 </section>
 
