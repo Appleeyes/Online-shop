@@ -46,7 +46,7 @@ CREATE TABLE `orders` (
     quantity TINYINT NOT NULL,
     subtotal DECIMAL(10,2) NOT NULL,
     product_id INT NOT NULL,
-    is_paid TINYINT(1) UNSIGNED NOT NULL DEFAULT 1 COMMENT '0 = not paid, 1 = paid',
+    is_paid TINYINT(1) UNSIGNED NOT NULL DEFAULT 0 COMMENT '0 = not paid, 1 = paid',
     FOREIGN KEY(product_id) REFERENCES products(product_id) ON DELETE CASCADE
 );
 

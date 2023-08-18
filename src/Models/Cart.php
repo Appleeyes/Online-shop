@@ -33,9 +33,25 @@ class Cart
         }
     }
 
+    public function removeCartItem($user_id, $cart_id)
+    {
+        $query = "DELETE FROM carts WHERE cart_id = :cart_id AND user_id = :user_id";
+        $params = [
+            ':cart_id' => $cart_id,
+            ':user_id' => $user_id,
+        ];
+
+        try {
+            return $this->db->delete($query, $params);
+        } catch (\PDOException $e) {
+            die('<p class="error">Failed to remove product from cart: ' . $e->getMessage() . '</p>');
+        }
+    }
+
+
     public function getUserCartItems($user_id)
     {
-        $query = "SELECT carts.cart_id, products.thumbnail, products.name, products.price, carts.quantity, (products.price * carts.quantity) AS subtotal
+        $query = "SELECT carts.cart_id, products.thumbnail, products.name, carts.size, products.price, carts.quantity, (products.price * carts.quantity) AS subtotal
                   FROM carts
                   JOIN products ON carts.product_id = products.product_id
                   WHERE carts.user_id = :user_id";

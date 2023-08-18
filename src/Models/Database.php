@@ -88,26 +88,18 @@ class Database
         return $stmt->execute();
     }
 
-    public function delete($table, $condition): bool
+    public function delete($query, $params = []): bool
     {
-        $query = "DELETE FROM $table WHERE $condition";
-        return $this->pdo->exec($query);
+        try {
+            $stmt = $this->pdo->prepare($query);
+            $stmt->execute($params);
+            return true;
+        } catch (\PDOException $e) {
+            die('<p class="error">Query failed: ' . $e->getMessage() . '</p>');
+            return false;
+        }
     }
 
-    public function beginTransaction()
-    {
-        return $this->pdo->beginTransaction();
-    }
-
-    public function commit()
-    {
-        return $this->pdo->commit();
-    }
-
-    public function rollBack()
-    {
-        return $this->pdo->rollBack();
-    }
 }
 
 

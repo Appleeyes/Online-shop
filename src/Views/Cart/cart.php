@@ -15,6 +15,21 @@ ini_set('display_errors', 1);
 </section>
 
 <section id="cart" class="section-p1">
+    <!-- Display success message -->
+    <?php if (isset($_SESSION['success_message'])) : ?>
+        <div class="alert alert-success" role="alert">
+            <?php echo $_SESSION['success_message']; ?>
+        </div>
+        <?php unset($_SESSION['success_message']); ?>
+    <?php endif; ?>
+
+    <!-- Display error message -->
+    <?php if (isset($_SESSION['error_message'])) : ?>
+        <div class="alert alert-danger" role="alert">
+            <?php echo $_SESSION['error_message']; ?>
+        </div>
+        <?php unset($_SESSION['error_message']); ?>
+    <?php endif; ?>
     <table width="100%">
         <thead>
             <tr>
@@ -68,12 +83,7 @@ ini_set('display_errors', 1);
                 <td><strong>$<?php echo $totalAmount; ?></strong></td>
             </tr>
         </table>
-        <form action="<?php echo BASE_URL . 'order'; ?>" method="POST">
-            <input type="hidden" name="name" value="<?php echo $cartItems->name; ?>">
-            <input type="hidden" name="size" value="<?php echo $cartItems->size; ?>">
-            <input type="hidden" name="quantity" value="<?php echo $cartItems->quantity; ?>">
-            <input type="hidden" name="subtotal" value="<?php echo $cartItems->subtotal; ?>">
-            <input type="hidden" name="product_id" value="<?php echo $cartItems->subtotal; ?>">
+        <form action="<?php echo BASE_URL . 'cart/checkout'; ?>">
             <button type="submit" class="normal">Proceed to checkout</button>
         </form>
     </div>

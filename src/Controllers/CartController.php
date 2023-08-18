@@ -56,6 +56,26 @@ class CartController
         return $totalAmount;
     }
 
+    public function removeCartItem()
+    {
+        if ($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET['cart_id'])) {
+            $user_id = $_SESSION['user_id'];
+            $cart_id = $_GET['cart_id'];
+
+            $cart = new Cart();
+            $result = $cart->removeCartItem($user_id, $cart_id);
+
+            if ($result) {
+                $_SESSION['success_message'] = 'Cart item removed successfully.';
+            } else {
+                $_SESSION['error_message'] = 'Failed to remove cart item.';
+            }
+
+            header('Location: ' . BASE_URL . 'cart');
+            exit();
+        }
+    }
+
     public function showCheckoutPage(): void
     {
         $cartModel = new Cart();
