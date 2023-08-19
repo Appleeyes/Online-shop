@@ -43,6 +43,19 @@ class Database
         }
     }
 
+    public function fetchArray($query, $params = [])
+    {
+        try {
+            $stmt = $this->pdo->prepare($query);
+            $stmt->execute($params);
+            return $stmt->fetchAll(\PDO::FETCH_ASSOC); // Fetch all rows as associative arrays
+        } catch (\PDOException $e) {
+            die('<p class="error">Query failed: ' . $e->getMessage() . '</p>');
+            return null;
+        }
+    }
+
+
     public function fetchAll($query, $params = []): array
     {
         try {
@@ -100,6 +113,20 @@ class Database
         }
     }
 
+    public function beginTransaction()
+    {
+        return $this->pdo->beginTransaction();
+    }
+
+    public function commit()
+    {
+        return $this->pdo->commit();
+    }
+
+    public function rollBack()
+    {
+        return $this->pdo->rollBack();
+    }
 }
 
 

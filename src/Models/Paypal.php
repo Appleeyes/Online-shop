@@ -21,7 +21,7 @@ class PayPal
         $this->sandboxMode = PAYPAL_SANDBOX_MODE;
     }
 
-    public function createOrder($amount, $currency = 'USD')
+    public function createOrder($amount, $returnUrl, $currency = 'USD')
     {
         $url = $this->sandboxMode ? 'https://api.sandbox.paypal.com/v2/checkout/orders' : 'https://api.paypal.com/v2/checkout/orders';
 
@@ -35,10 +35,14 @@ class PayPal
                 array(
                     'amount' => array(
                         'currency_code' => $currency,
-                        'value' => $amount,
+                        'value' => sprintf("%.2f", $amount),
                     ),
                 ),
             ),
+            'application_context' => array(
+                'user_action' => 'PAY_NOW',
+                'return_url' => $returnUrl
+            )
         );
 
         $ch = curl_init($url);
@@ -48,17 +52,10 @@ class PayPal
         curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($data));
         curl_setopt($ch, CURLOPT_USERPWD, $this->clientID . ':' . $this->clientSecret);
         $response = curl_exec($ch);
-        curl_close($ch);
         
+        curl_close($ch);
 
         return json_decode($response, true);
-    }
-
-    public function captureOrder($orderID)
-    {
-        $url = $this->sandboxMode ? "https://api.sandbox.paypal.com/v2/checkout/orders/$orderID/capture" : "https://api.paypal.com/v2/checkout/orders/$orderID/capture";
-
-        // ... (your existing captureOrder code)
     }
 }
 

@@ -33,6 +33,10 @@ $router->post(path: BASE_URL . 'cart/add', handler: CartController::class . '::a
 $router->get(path: BASE_URL . 'cart/remove', handler: CartController::class . '::removeCartItem');
 $router->get(path: BASE_URL . 'cart/checkout', handler: CartController::class . '::showCheckoutpage');
 $router->post(path: BASE_URL . 'cart/process-checkout', handler: CartController::class . '::processCheckout');
+$router->get(path: BASE_URL . 'cart/success', handler: OrderController::class . '::showSuccessPage');
+$router->get(path: BASE_URL . 'cart/confirm-page', handler: OrderController::class . '::showConfirmPage');
+$router->post(path: BASE_URL . 'cart/confirm-paid', handler: OrderController::class . '::confirmPaid');
+
 
 
 

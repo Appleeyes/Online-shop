@@ -48,6 +48,15 @@ class Cart
         }
     }
 
+    public function clearUserCart($user_id)
+    {
+        $query = "DELETE FROM carts WHERE user_id = :user_id";
+        $params = [':user_id' => $user_id];
+
+        $db = new Database();
+        return $db->delete($query, $params);
+    }
+
 
     public function getUserCartItems($user_id)
     {
@@ -59,6 +68,24 @@ class Cart
 
         return $this->db->fetchAll($query, $params);
     }
+
+    public function getUserCartProductIds($user_id)
+    {
+        $query = "SELECT product_id FROM carts WHERE user_id = :user_id";
+        $params = [':user_id' => $user_id];
+
+        $result = $this->db->fetchArray($query, $params);
+
+        $productIds = [];
+        foreach ($result as $row) {
+            $productIds[] = $row['product_id'];
+        }
+
+        return $productIds;
+    }
+
+
+
 
     public function getCartCount($user_id)
     {

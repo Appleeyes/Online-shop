@@ -30,7 +30,7 @@ class CartController
             if ($result) {
                 // Add the product to the order as well
                 $orderController = new OrderController();
-                $orderController->addProductToOrder($size, $quantity, $product_id);
+                $orderController->addProductToOrder($size, $quantity, $product_id, $user_id);
 
                 $_SESSION['success_message'] = 'Product added to cart successfully.';
                 header('location: ' . BASE_URL . 'product');
@@ -94,10 +94,14 @@ class CartController
         // Redirect to payment gateway based on selected payment method
         if ($_POST['payment_method'] === 'paypal') {
             $totalAmount = $this->calculateTotal();
+            $returnUrl = 'http://localhost:3000/Online-shop/cart/success';
+
             $paypal = new PayPal();
-            $order = $paypal->createOrder($totalAmount);
-            
-            if (isset($order['links'][1]['href'])) {
+            $order = $paypal->createOrder($totalAmount, $returnUrl, 'USD');
+            if (isset($order['id'])) {
+                // Store the PayPal order ID in the session
+                $_SESSION['paypal_order_id'] = $order['id'];
+
                 // Redirect user to PayPal payment page
                 header('Location: ' . $order['links'][1]['href']);
                 exit();

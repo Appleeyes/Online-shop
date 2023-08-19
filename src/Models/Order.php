@@ -9,6 +9,7 @@ error_reporting(E_ALL);
 
 class Order
 {
+    public $product_id;
     protected $db;
 
     public function __construct()
@@ -16,13 +17,14 @@ class Order
         $this->db = new Database();
     }
 
-    public function addOrder($size, $quantity, $subtotal,$product_id)
+    public function addOrder($size, $quantity, $subtotal, $product_id, $user_id)
     {
         $data = [
             'size' => $size,
             'quantity' => $quantity,
             'subtotal' => $subtotal,
             'product_id' => $product_id,
+            'user_id' => $user_id,
         ];
 
         $db = new Database();
@@ -42,6 +44,17 @@ class Order
             $db->rollBack();
             die('<p class="error">Failed to add orders: ' . $e->getMessage() . '</p>');
         }
+    }
+
+
+    public function markOrderAsPaid($user_id, $product_id)
+    {
+        $data = ['is_paid' => 1];
+        $condition = 'user_id = :user_id AND product_id = :product_id';
+        $data['user_id'] = $user_id;
+        $data['product_id'] = $product_id;
+        $db = new Database();
+        return $db->update('orders', $data, $condition);
     }
 
 }

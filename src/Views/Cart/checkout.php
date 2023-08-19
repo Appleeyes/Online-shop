@@ -76,7 +76,7 @@ ini_set('display_errors', 1);
     </div>
 </section>
 
-<script src="https://www.paypal.com/sdk/js?client-id=AThn_TXaBTt6tT6tvIZRwG3gSzI7CjJP-DPRPJSu1YhqxvUgqfyJkNS_LILNoHtc7u-dllt0i2HcZ5r0"></script>
+
 <?php
 require_once __DIR__ . '/../templates/footer.php';
 ?>
