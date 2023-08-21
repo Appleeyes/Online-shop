@@ -36,6 +36,12 @@ class Admin
         return $this->db->fetchAll($query);
     }
 
+    public function getUsersById($user_id)
+    {
+        $query = "SELECT * FROM users WHERE user_id = ?";
+        return $this->db->fetch($query, [$user_id]);
+    }
+
     public function removeUsers($user_id)
     {
         $query = "DELETE FROM users WHERE user_id = :user_id";
@@ -84,5 +90,19 @@ class Admin
 
         $db = new Database();
         return $db->update('categories', $data, $condition);
+    }
+
+    public function removeCategory($category_id)
+    {
+        $query = "DELETE FROM categories WHERE category_id = :category_id";
+        $params = [
+            ':category_id' => $category_id,
+        ];
+
+        try {
+            return $this->db->delete($query, $params);
+        } catch (\PDOException $e) {
+            die('<p class="error">Failed to remove category from base: ' . $e->getMessage() . '</p>');
+        }
     }
 }

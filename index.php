@@ -47,6 +47,8 @@ $router->get(path: BASE_URL . 'admin/category-form', handler: AdminController::c
 $router->post(path: BASE_URL . 'admin/categories/add', handler: AdminController::class . '::addCategories');
 $router->get(path: BASE_URL . 'admin/categories/update', handler: AdminController::class . '::showUpdateCategoryForm');
 $router->post(path: BASE_URL . 'admin/categories/update', handler: AdminController::class . '::updateCategories');
+$router->get(path: BASE_URL . 'admin/categories/remove', handler: AdminController::class . '::removeCategories');
+
 
 
 

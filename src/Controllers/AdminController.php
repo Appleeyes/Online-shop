@@ -96,18 +96,41 @@ class AdminController
             $user_id = $_GET['user_id'];
 
             $admin = new Admin();
-            $result = $admin->removeUsers($user_id);
+            $user = $admin->getUsersById($user_id); // Fetch user data
 
-            if ($result) {
-                $_SESSION['success_message'] = 'User deleted successfully.';
+            if ($user) {
+                $result = $admin->removeUsers($user_id);
+
+                $thumbnailPath = __DIR__ . '/../../../Online-shop/public/db-img/';
+                $thumbnailName = basename($user->thumbnail);
+                // Construct the full path to the thumbnail
+                $fullThumbnailPath = $thumbnailPath . $thumbnailName;
+
+                // Check if the thumbnail file exists and delete it
+                if (file_exists($fullThumbnailPath)) {
+                    if (unlink($fullThumbnailPath)) {
+                        $_SESSION['success_message'] .= ' Thumbnail deleted.';
+                    } else {
+                        $_SESSION['error_message'] .= ' Unable to delete thumbnail.';
+                    }
+                } else {
+                    $_SESSION['error_message'] .= ' Thumbnail not found.';
+                }
+
+                if ($result) {
+                    $_SESSION['success_message'] = 'User deleted successfully.';
+                } else {
+                    $_SESSION['error_message'] = 'Unable to delete user.';
+                }
             } else {
-                $_SESSION['error_message'] = 'Unable to delete user.';
+                $_SESSION['error_message'] = 'User not found.';
             }
 
             header('Location: ' . BASE_URL . 'admin');
             exit();
         }
     }
+
 
     public function showCategories(): void
     {
@@ -167,6 +190,25 @@ class AdminController
                 header('location: ' . BASE_URL . 'admin/categories');
                 die();
             }
+        }
+    }
+
+    public function removeCategories()
+    {
+        if ($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET['category_id'])) {
+            $category_id = $_GET['category_id'];
+
+            $admin = new Admin();
+            $result = $admin->removeCategory($category_id);
+
+            if ($result) {
+                $_SESSION['success_message'] = 'Category deleted successfully.';
+            } else {
+                $_SESSION['error_message'] = 'Unable to delete Category.';
+            }
+
+            header('Location: ' . BASE_URL . 'admin/categories');
+            exit();
         }
     }
 }
