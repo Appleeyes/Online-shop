@@ -1,0 +1,28 @@
+<?php
+
+namespace OnlineShop\Models;
+
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+error_reporting(E_ALL);
+
+
+
+class Admin
+{
+    protected $db;
+
+    public function __construct()
+    {
+        $this->db = new Database();
+    }
+
+    public function getOrders($is_paid)
+    {
+        $query = "SELECT orders.orders_id, products.thumbnail, products.name, orders.size, products.price, orders.quantity, orders.subtotal
+                  FROM orders
+                  JOIN products ON orders.product_id = products.product_id
+                  WHERE orders.is_paid = 1";
+        return $this->db->fetchAll($query);
+    }
+}

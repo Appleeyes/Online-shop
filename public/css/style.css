@@ -994,6 +994,96 @@ footer .copyright {
 
 /* Cart Page end */
 
+/* admin start */
+#dashboard{
+  background-color: #03413c;
+}
+
+#dashboard .dashboard-container{
+  display: grid;
+  grid-template-columns: 14rem auto;
+  gap: 1rem;
+  background-color: rgb(128, 128, 128, 0.3);
+  padding: 2rem;
+  margin-bottom: 5rem;
+}
+
+#dashboard aside li{
+  list-style-type: none;
+}
+
+#dashboard aside a{
+  background-color: rgb(128, 128, 128);
+  color: #000;
+  text-decoration: none;
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+  padding: 1.6rem;
+}
+
+#dashboard aside a:hover{
+  background-color: rgb(128, 128, 128, 0.3);
+  transition: 0.3s ease;
+}
+
+#dashboard aside a.active{
+  background-color: rgb(128, 128, 128, 0.3);
+}
+
+#dashboard aside ul li:not(:last-child){
+  border-bottom: 3px solid rgb(128, 128, 128, 0.3);
+}
+
+#dashboard main{
+  margin-left: 1.5rem;
+}
+
+#dashboard main h2{
+  margin: 0 0 2rem 0;
+  line-height: 1;
+}
+
+#dashboard main table{
+  width: 100%;
+  text-align: left;
+}
+
+#dashboard main table th{
+  background-color: rgba(255, 255, 255, 0.1);
+  padding: 0.8rem;
+  font-weight: 800;
+}
+
+#dashboard main table td{
+  padding: 0.8rem;
+  border-bottom: 4px solid rgba(255, 255, 255, 0.1);
+} 
+
+#dashboard main table tr:hover td{
+  background-color: #088178;
+  cursor: default;
+  transition: 0.3s ease;
+}
+
+
+td .btnn{
+  text-decoration: none;
+  padding: 10px;
+  font-size: 15px;
+  background-color: #041e42;
+}
+
+td .btnn:hover,
+td .btnn.danger:hover{
+  background-color: #fff;
+  transition: 0.3s ease;
+}
+
+td .btnn.danger{
+  background-color: rgb(154, 2, 2);
+}
+
 @media (max-width: 799px) {
   .section-p1 {
     padding: 40px 40px;
@@ -1098,6 +1188,42 @@ footer .copyright {
   #form-details form{
     width: 50%;
   }
+
+  /* admin */
+  #dashboard .dashboard-container{
+    grid-template-columns: 4.3rem auto;
+    padding: 0;
+    background: transparent;
+  }
+
+  #dashboard .dashboard-container ul{
+    width: 70px;
+  }
+
+  #dashboard main h2{
+    font-size: 60px;
+  }
+
+  #dashboard aside h5{
+    display: none;
+  }
+
+  #dashboard main table thead{
+    display: none;
+  }
+
+  #dashboard main table tr{
+    display: flex;
+    flex-direction: column;
+  }
+
+  #dashboard main table tr:nth-child(even){
+    background-color: rgba(255, 255, 255, 0.2);
+  }
+
+td .btnn{
+  font-size: 15px;
+}
 }
 
 
@@ -1260,4 +1386,36 @@ footer .copyright {
       width: 100%;
       padding: 20px;
     }
+
+    /* admin */
+    #dashboard .dashboard-container{
+    grid-template-columns: 4.3rem auto;
+    padding: 0;
+    background: transparent;
+  }
+
+  #dashboard .dashboard-container ul{
+    width: 60px;
+  }
+
+  #dashboard main h2{
+    font-size: 20px;
+  }
+
+  #dashboard aside h5{
+    display: none;
+  }
+
+  #dashboard main table thead{
+    display: none;
+  }
+
+  #dashboard main table tr{
+    display: flex;
+    flex-direction: column;
+  }
+
+  #dashboard main table tr:nth-child(even){
+    background-color: rgba(255, 255, 255, 0.2);
+  }
 }

@@ -24,7 +24,7 @@ if (isset($_SESSION['user_id'])) {
             <?php if (isset($_SESSION['user_id'])) : ?>
                 <?php if (isset($_SESSION['user_role']) && $_SESSION['user_role']) : ?>
                     <!-- User is an admin -->
-                    <li><a href="<?= BASE_URL ?>logout">Admin</a></li>
+                    <li><a href="<?= BASE_URL ?>admin">Admin</a></li>
                     <div class="user-thumb">
                         <?php
                         $thumbnailPath = BASE_URL . 'public/db-img/' . basename($_SESSION['user_thumbnail']);
@@ -34,7 +34,7 @@ if (isset($_SESSION['user_id'])) {
                     <a href="#" id="close"><i class="fas fa-times"></i></a>
                 <?php else : ?>
                     <!-- User is not an admin -->
-                    <li><a href="<?= BASE_URL ?>admin">Logout</a></li>
+                    <li><a href="<?= BASE_URL ?>logout">Logout</a></li>
                     <div class="user-thumb">
                         <?php
                         $thumbnailPath = BASE_URL . 'public/db-img/' . basename($_SESSION['user_thumbnail']);

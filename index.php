@@ -8,6 +8,7 @@ use OnlineShop\Controllers\ProductController;
 use OnlineShop\Controllers\CartController;
 use OnlineShop\Controllers\UserController;
 use OnlineShop\Controllers\OrderController;
+use OnlineShop\Controllers\AdminController;
 
 
 session_start();
@@ -36,6 +37,10 @@ $router->post(path: BASE_URL . 'cart/process-checkout', handler: CartController:
 $router->get(path: BASE_URL . 'cart/success', handler: OrderController::class . '::showSuccessPage');
 $router->get(path: BASE_URL . 'cart/confirm-page', handler: OrderController::class . '::showConfirmPage');
 $router->post(path: BASE_URL . 'cart/confirm-paid', handler: OrderController::class . '::confirmPaid');
+$router->get(path: BASE_URL . 'admin', handler: AdminController::class . '::execute');
+$router->get(path: BASE_URL . 'admin/add', handler: AdminController::class . '::showAddAdminForm');
+$router->post(path: BASE_URL . 'admin/addAdmin', handler: AdminController::class . '::addAdmin');
+
 
 
 
