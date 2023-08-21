@@ -3,6 +3,7 @@
 namespace OnlineShop\Controllers;
 use OnlineShop\Models\User;
 use OnlineShop\Models\Admin;
+use OnlineShop\Models\Product;
 
 
 
@@ -110,9 +111,33 @@ class AdminController
 
     public function showCategories(): void
     {
-        $admin = new Admin();
-        $categories = $admin->getCategories();
+        $products = new Product();
+        $categories = $products->getCategories();
         require_once __DIR__ . '/../Views/Users/admin/categories.php';
     }
 
+    public function showCategoryForm(): void
+    {
+        require_once __DIR__ . '/../Views/Users/admin/addcategories.php';
+    }
+
+    public function addCategories(): void
+    {
+        // Handle form submission to add product
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            // Validate and sanitize input fields
+
+            $admin = new Admin();
+            $admin->title = $_POST['title'];
+            $admin->description = $_POST['description'];
+
+            $result = $admin->createCategories();
+            if ($result) {
+                $_SESSION['success_message'] = 'Category added successfully.';
+                header('location: ' . BASE_URL . 'admin/categories');
+                exit();
+            }
+
+        }
+    }
 }

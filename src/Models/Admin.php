@@ -10,6 +10,8 @@ error_reporting(E_ALL);
 
 class Admin
 {
+    public $title;
+    public $description;
     protected $db;
 
     public function __construct()
@@ -47,10 +49,19 @@ class Admin
         }
     }
 
-    public function getCategories(): array
+    public function createCategories()
     {
-        $query = "SELECT * FROM categories";
-        $categories = $this->db->fetchAll($query);
-        return $categories;
+        $data = [
+            'title' => $this->title,
+            'description' => $this->description,
+        ];
+
+        $db = new Database();
+        try {
+            return $db->insert('categories', $data);
+        } catch (\PDOException $e) {
+            die('<p class="error">Categories insertion failed: ' . $e->getMessage() . '</p>');
+            return false;
+        }
     }
 }

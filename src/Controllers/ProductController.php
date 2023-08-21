@@ -12,7 +12,7 @@ class ProductController
     public function execute(): void
     {
         $product = new Product();
-        $perPage = 12; // Number of products per page
+        $perPage = 12;
         $currentPage = isset($_GET['page']) ? intval($_GET['page']) : 1;
 
         // Get total number of products

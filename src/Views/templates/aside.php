@@ -21,7 +21,7 @@
             </a>
         </li>
         <li>
-            <a href="add-category.php"><i class="fa-regular fa-pen-to-square"></i>
+            <a href="<?= BASE_URL ?>admin/category-form"><i class="fa-regular fa-pen-to-square"></i>
                 <h5>Add Category</h5>
             </a>
         </li>
