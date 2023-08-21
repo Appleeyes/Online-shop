@@ -558,21 +558,30 @@ footer .copyright {
 
 #pagination{
     text-align: center;
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
 }
 
 #pagination a{
     text-decoration: none;
     background-color: #088178;
-    padding: 15px 20px;
+    padding: 10px 15px;
     border-radius: 4px;
     color: #fff;
     font-weight: 600;
+    margin: 0 5px; 
 }
 
 #pagination a i{
     font-size: 16px;
     font-weight: 600;
 }
+
+#pagination a.active {
+        background-color: #333;
+        color: #fff;
+  }
 
 /* Shop Page End */
 

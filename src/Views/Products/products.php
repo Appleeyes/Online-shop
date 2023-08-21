@@ -40,6 +40,28 @@ require_once __DIR__ . '/../templates/navigation.php';
     </div>
 </section>
 
+
+<section id="pagination" class="section-p1">
+    <?php
+    $visiblePages = 3;
+    $startPage = max(1, $currentPage - 1);
+    $endPage = min($totalPages, $startPage + $visiblePages - 1);
+
+    if ($currentPage > 1) {
+        echo '<a href="' . BASE_URL . 'product?page=' . ($currentPage - 1) . '"><i class="fa-solid fa-caret-left"></i></a>';
+    }
+
+    for ($i = $startPage; $i <= $endPage; $i++) {
+        $activeClass = $i === $currentPage ? 'active' : '';
+        echo '<a class="' . $activeClass . '" href="' . BASE_URL . 'product?page=' . $i . '">' . $i . '</a>';
+    }
+
+    if ($currentPage < $totalPages) {
+        echo '<a href="' . BASE_URL . 'product?page=' . ($currentPage + 1) . '"><i class="fa-solid fa-caret-right"></i></i></a>';
+    }
+    ?>
+</section>
+
 <?php
 require_once __DIR__ . '/../templates/newsletter.php';
 require_once __DIR__ . '/../templates/footer.php';

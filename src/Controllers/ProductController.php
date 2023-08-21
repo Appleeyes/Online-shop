@@ -12,9 +12,21 @@ class ProductController
     public function execute(): void
     {
         $product = new Product();
-        $products = $product->getProducts();
+        $perPage = 12; // Number of products per page
+        $currentPage = isset($_GET['page']) ? intval($_GET['page']) : 1;
+
+        // Get total number of products
+        $totalProducts = count($product->getProducts());
+
+        // Calculate total pages
+        $totalPages = ceil($totalProducts / $perPage);
+
+        // Get paginated products
+        $products = $product->getPaginatedProducts($currentPage, $perPage);
+
         require_once __DIR__ . '/../Views/Products/products.php';
     }
+
 
     public function showAddProductForm(): void
     {

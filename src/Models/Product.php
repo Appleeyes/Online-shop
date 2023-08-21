@@ -108,4 +108,16 @@ class Product
         $db = new Database();
         return $db->update('products', $data, $condition);
     }
+
+    public function getPaginatedProducts($page = 1, $perPage = 12): array
+    {
+        $offset = ($page - 1) * $perPage;
+        $query = "SELECT p.*, c.title AS category_title
+              FROM products AS p
+              JOIN categories AS c ON p.category_id = c.category_id
+              LIMIT $perPage OFFSET $offset";
+        $products = $this->db->fetchAll($query);
+        return $products;
+    }
+
 }
