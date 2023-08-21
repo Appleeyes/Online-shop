@@ -30,5 +30,10 @@
                 <h5>Manage Category</h5>
             </a>
         </li>
+        <li>
+            <a class="<?php if ($activePage === 'products') echo 'active'; ?>" href="<?= BASE_URL ?>admin/products"><i class="fa-regular fa-paste"></i>
+                <h5>Manage Product</h5>
+            </a>
+        </li>
     </ul>
 </aside>

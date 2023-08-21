@@ -1,0 +1,64 @@
+<?php
+$activePage = 'products';
+
+require_once __DIR__ . '/../../templates/header.php';
+require_once __DIR__ . '/../../templates/navigation.php';
+
+?>
+
+<section id="dashboard" class="padding-all">
+    <!-- Display success message -->
+    <?php if (isset($_SESSION['success_message'])) : ?>
+        <div class="alert alert-success" role="alert">
+            <?php echo $_SESSION['success_message']; ?>
+        </div>
+        <?php unset($_SESSION['success_message']); ?>
+    <?php endif; ?>
+
+    <!-- Display error message -->
+    <?php if (isset($_SESSION['error_message'])) : ?>
+        <div class="alert alert-danger" role="alert">
+            <?php echo $_SESSION['error_message']; ?>
+        </div>
+        <?php unset($_SESSION['error_message']); ?>
+    <?php endif; ?>
+
+    <div class="dashboard-container">
+        <?php require_once __DIR__ . '/../../templates/aside.php'; ?>
+        <main>
+            <h2>List Of Products</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Name</th>
+                        <th>Thumbnail</th>
+                        <th>Price</th>
+                        <th>Category</th>
+                        <th>Featured</th>
+                        <th>New</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <?php foreach ($productData as $product) : ?>
+                        <tr>
+                            <td><?= $product->product_id ?></td>
+                            <td><?= $product->name ?></td>
+                            <td><img src="<?= BASE_URL . 'public/db-img/' . basename($product->thumbnail) ?>" alt="<?= $product->name ?>"></td>
+                            <td>$<?= $product->price ?></td>
+                            <td><?= $product->category_title ?></td>
+                            <td>$<?= $product->is_featured ?></td>
+                            <td><?= $product->is_new ?></td>
+                            <td><a href="<?= BASE_URL ?>admin/delete-user.php?Id=<?= $user['Id'] ?>" class="btnn danger">Delete</a></td>
+                        </tr>
+                    <?php endforeach; ?>
+                </tbody>
+            </table>
+        </main>
+    </div>
+</section>
+
+<?php
+require_once __DIR__ . '/../../templates/footer.php';
+?>

@@ -211,4 +211,11 @@ class AdminController
             exit();
         }
     }
+
+    public function showProductTable()
+    {
+        $product = new Product;
+        $productData = $product->getProducts();
+        require_once __DIR__ . '/../Views/Users/admin/products.php';
+    }
 }
