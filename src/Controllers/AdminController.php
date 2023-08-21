@@ -10,6 +10,8 @@ class AdminController
 {
     public function execute(): void
     {
+        $admin = new Admin();
+        $Users = $admin->getUsers();
         require_once __DIR__ . '/../Views/Users/admin/index.php';
     }
 
@@ -87,5 +89,22 @@ class AdminController
         require_once __DIR__ . '/../Views/Users/admin/paidOrders.php';
     }
 
-    
+    public function removeUsers()
+    {
+        if ($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET['user_id'])) {
+            $user_id = $_GET['user_id'];
+
+            $admin = new Admin();
+            $result = $admin->removeUsers($user_id);
+
+            if ($result) {
+                $_SESSION['success_message'] = 'User deleted successfully.';
+            } else {
+                $_SESSION['error_message'] = 'Unable to delete user.';
+            }
+
+            header('Location: ' . BASE_URL . 'admin');
+            exit();
+        }
+    }
 }

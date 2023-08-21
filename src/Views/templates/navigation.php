@@ -24,26 +24,35 @@ if (isset($_SESSION['user_id'])) {
             <?php if (isset($_SESSION['user_id'])) : ?>
                 <?php if (isset($_SESSION['user_role']) && $_SESSION['user_role']) : ?>
                     <!-- User is an admin -->
-                    <li><a href="<?= BASE_URL ?>admin">Admin</a></li>
-                    <div class="user-thumb">
-                        <?php
-                        $thumbnailPath = BASE_URL . 'public/db-img/' . basename($_SESSION['user_thumbnail']);
-                        ?>
-                        <a href="#"><img src="<?= $thumbnailPath ?>" alt="User Thumbnail"></a>
-                    </div>
-                    <a href="#" id="close"><i class="fas fa-times"></i></a>
+                    <?php if ($activePage === 'admin' || $activePage === 'paidOrders' || $activePage === 'manageProducts') : ?>
+                        <li><a href="<?= BASE_URL ?>logout">Logout</a></li>
+                        <div class="user-thumb">
+                            <?php
+                            $thumbnailPath = BASE_URL . 'public/db-img/' . basename($_SESSION['user_thumbnail']);
+                            ?>
+                            <a href="#"><img src="<?= $thumbnailPath ?>" alt="User Thumbnail"></a>
+                        </div>
+                        <a href="#" id="close"><i class="fas fa-times"></i></a>
+                    <?php else : ?>
+                        <li><a href="<?= BASE_URL ?>admin">Admin</a></li>
+                        <div class="user-thumb">
+                            <?php
+                            $thumbnailPath = BASE_URL . 'public/db-img/' . basename($_SESSION['user_thumbnail']);
+                            ?>
+                            <a href="#"><img src="<?= $thumbnailPath ?>" alt="User Thumbnail"></a>
+                        </div>
+                        <a href="#" id="close"><i class="fas fa-times"></i></a>
+                    <?php endif; ?>
                 <?php else : ?>
-                    <!-- User is not an admin -->
                     <li><a href="<?= BASE_URL ?>logout">Logout</a></li>
-                    <div class="user-thumb">
-                        <?php
-                        $thumbnailPath = BASE_URL . 'public/db-img/' . basename($_SESSION['user_thumbnail']);
-                        ?>
-                        <a href="#"><img src="<?= $thumbnailPath ?>" alt="User Thumbnail"></a>
-                    </div>
-                    <a href="#" id="close"><i class="fas fa-times"></i></a>
+                        <div class="user-thumb">
+                            <?php
+                            $thumbnailPath = BASE_URL . 'public/db-img/' . basename($_SESSION['user_thumbnail']);
+                            ?>
+                            <a href="#"><img src="<?= $thumbnailPath ?>" alt="User Thumbnail"></a>
+                        </div>
+                        <a href="#" id="close"><i class="fas fa-times"></i></a>
                 <?php endif; ?>
-
             <?php else : ?>
                 <!-- User is not logged in -->
                 <li><a href="<?= BASE_URL ?>login">Log-In</a></li>

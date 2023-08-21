@@ -6,8 +6,8 @@
             </a>
         </li>
         <li>
-            <a class="<?php if ($activePage === 'admin') echo 'active'; ?>" href="<?= BASE_URL ?>admin"><i class="fa-regular fa-paste"></i>
-                <h5>Manage Post</h5>
+            <a class="<?php if ($activePage === 'admin') echo 'active'; ?>" href="<?= BASE_URL ?>admin"><i class="fa-solid fa-user-group"></i>
+                <h5>Manage Users</h5>
             </a>
         </li>
         <li>
@@ -16,12 +16,12 @@
             </a>
         </li>
         <li>
-            <a class="<?php if ($activePage === 'paidOrders') echo 'active'; ?>" href="<?= BASE_URL ?>admin/paidOrders"><i class="fa-solid fa-user-group"></i>
+            <a class="<?php if ($activePage === 'paidOrders') echo 'active'; ?>" href="<?= BASE_URL ?>admin/paidOrders"><i class="fa-regular fa-paste"></i>
                 <h5>Manage Order</h5>
             </a>
         </li>
         <li>
-            <a href="add-category.php"><i class="fa-regular fa-pen-to-square"></i></i>
+            <a href="add-category.php"><i class="fa-regular fa-pen-to-square"></i>
                 <h5>Add Category</h5>
             </a>
         </li>

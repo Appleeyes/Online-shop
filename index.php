@@ -41,6 +41,7 @@ $router->get(path: BASE_URL . 'admin', handler: AdminController::class . '::exec
 $router->get(path: BASE_URL . 'admin/add', handler: AdminController::class . '::showAddAdminForm');
 $router->post(path: BASE_URL . 'admin/addAdmin', handler: AdminController::class . '::addAdmin');
 $router->get(path: BASE_URL . 'admin/paidOrders', handler: AdminController::class . '::showPaidOrders');
+$router->get(path: BASE_URL . 'admin/remove', handler: AdminController::class . '::removeUsers');
 
 
 

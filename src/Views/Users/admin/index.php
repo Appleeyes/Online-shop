@@ -29,22 +29,25 @@ require_once __DIR__ . '/../../templates/navigation.php';
             <table>
                 <thead>
                     <tr>
-                        <th>Title</th>
-                        <th>Category</th>
-                        <th>Edit</th>
+                        <th>Name</th>
+                        <th>Email</th>
+                        <th>Thumbnail</th>
+                        <th>Admin</th>
                         <th>Delete</th>
                     </tr>
                 </thead>
                 <tbody>
-                    <tr>
-                        <td></td>
-                        <td></td>
-                        <td><a href="" class="btnn">Edit</a></td>
-                        <td><a href="" class="btnn danger">Delete</a></td>
-                    </tr>
+                    <?php foreach ($Users as $user) : ?>
+                        <tr>
+                            <td><?= $user->fullname ?></td>
+                            <td><?= $user->email ?></td>
+                            <td><img src="<?= BASE_URL . 'public/db-img/' . basename($user->thumbnail) ?>" alt="<?= $user->name ?>"></td>
+                            <td><?= ($user->is_admin == 1) ? 'Yes' : 'No' ?></td>
+                            <td><a class="btnn danger" href="<?= BASE_URL . 'admin/remove?user_id=' . $user->user_id ?>"><i class="far fa-times-circle"></i></a></td>
+                        </tr>
+                    <?php endforeach; ?>
                 </tbody>
             </table>
-            <div class="alert-message error"><?= "No Posts Found" ?></div>
         </main>
     </div>
 </section>

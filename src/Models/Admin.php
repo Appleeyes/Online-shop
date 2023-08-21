@@ -25,4 +25,25 @@ class Admin
                   WHERE orders.is_paid = 1";
         return $this->db->fetchAll($query);
     }
+
+    public function getUsers()
+    {
+        $current_admin = $_SESSION['user_id'];
+        $query = "SELECT * FROM users WHERE NOT user_id=$current_admin";
+        return $this->db->fetchAll($query);
+    }
+
+    public function removeUsers($user_id)
+    {
+        $query = "DELETE FROM users WHERE user_id = :user_id";
+        $params = [
+            ':user_id' => $user_id,
+        ];
+
+        try {
+            return $this->db->delete($query, $params);
+        } catch (\PDOException $e) {
+            die('<p class="error">Failed to remove users from base: ' . $e->getMessage() . '</p>');
+        }
+    }
 }
