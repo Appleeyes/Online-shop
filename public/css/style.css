@@ -115,6 +115,14 @@ body {
   display: none;
 }
 
+/* user thumbnail */
+.user-thumb img{
+  width: 2.5rem;
+  height: 2.5rem;
+  border-radius: 50px;
+  overflow: hidden;
+}
+
 /* Header End */
 
 /* HomePage Start */
@@ -1009,6 +1017,11 @@ footer .copyright {
     margin-bottom: 25px;
   }
 
+  /* user thumbnail */
+.user-thumb{
+  margin-left: 15px;
+}
+
   #mobile {
     display: flex;
     align-items: center;
@@ -1247,13 +1260,4 @@ footer .copyright {
       width: 100%;
       padding: 20px;
     }
-}
-
-
-/* user thumbnail */
-.user-thumb img{
-  width: 2.5rem;
-  height: 2.5rem;
-  border-radius: 50px;
-  overflow: hidden;
 }

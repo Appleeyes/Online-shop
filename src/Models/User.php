@@ -40,6 +40,7 @@ class User
             'thumbnail' => $this->thumbnail,
             'email' => $this->email,
             'password' => $this->getPassword(),
+            'is_admin' => $this->is_admin,
         ];
 
         $db = new Database();

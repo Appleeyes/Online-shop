@@ -21,7 +21,7 @@ class UserController
             $user->fullname = $_POST['fullname'];
             $user->email = $_POST['email'];
             $user->setPassword(password_hash($_POST['password'], PASSWORD_DEFAULT));
-            $user->is_admin = $_POST['is_admin'];
+            $user->is_admin = ($_POST['is_admin'] = 0);
             $confirmPassword = $_POST['confirm_password'];
 
             if (!password_verify($confirmPassword, $user->getPassword())) {
@@ -95,6 +95,11 @@ class UserController
                 $_SESSION['user_id'] = $userData->user_id;
                 $_SESSION['user_thumbnail'] = $userData->thumbnail;
                 $_SESSION['user_fullname'] = $userData->fullname;
+                if ($userData->is_admin == 1) {
+                    $_SESSION['user_role'] = true;
+                } else {
+                    $_SESSION['user_role'] = false;
+                }
                 $_SESSION['success_message'] = 'You are successfully logged in.';
                 header('Location: ' . BASE_URL . 'product');
                 exit();
