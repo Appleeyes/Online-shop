@@ -40,6 +40,7 @@ $router->post(path: BASE_URL . 'cart/confirm-paid', handler: OrderController::cl
 $router->get(path: BASE_URL . 'admin', handler: AdminController::class . '::execute');
 $router->get(path: BASE_URL . 'admin/add', handler: AdminController::class . '::showAddAdminForm');
 $router->post(path: BASE_URL . 'admin/addAdmin', handler: AdminController::class . '::addAdmin');
+$router->get(path: BASE_URL . 'admin/paidOrders', handler: AdminController::class . '::showPaidOrders');
 
 
 

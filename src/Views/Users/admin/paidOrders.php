@@ -1,4 +1,6 @@
 <?php
+$activePage = 'paidOrders';
+
 require_once __DIR__ . '/../../templates/header.php';
 require_once __DIR__ . '/../../templates/navigation.php';
 
@@ -24,28 +26,33 @@ require_once __DIR__ . '/../../templates/navigation.php';
     <div class="dashboard-container">
         <?php require_once __DIR__ . '/../../templates/aside.php'; ?>
         <main>
-            <h2>Manage Users</h2>
+            <h2>Paid Orders</h2>
             <table>
                 <thead>
                     <tr>
                         <th>Name</th>
-                        <th>Username</th>
-                        <th>Edit</th>
-                        <th>Delete</th>
-                        <th>Admin</th>
+                        <th>Thumbnail</th>
+                        <th>Size</th>
+                        <th>Price</th>
+                        <th>Quantity</th>
+                        <th>Subtotal</th>
+                        <th>Action</th>
                     </tr>
                 </thead>
                 <tbody>
-                    <tr>
-                        <td></td>
-                        <td></td>
-                        <td><a href="" class="btnn">Edit</a></td>
-                        <td><a href="" class="btnn danger">Delete</a></td>
-                        <td></td>
-                    </tr>
+                    <?php foreach ($paidOrders as $orders) : ?>
+                        <tr>
+                            <td><?= $orders->name ?></td>
+                            <td><img src="<?= BASE_URL . 'public/db-img/' . basename($orders->thumbnail) ?>" alt="<?= $orders->name ?>"></td>
+                            <td><?= $orders->size ?></td>
+                            <td>$<?= $orders->price ?></td>
+                            <td><?= $orders->quantity ?></td>
+                            <td>$<?= $orders->subtotal ?></td>
+                            <td><a href="<?= BASE_URL ?>admin/delete-user.php?Id=<?= $user['Id'] ?>" class="btnn danger">Delete</a></td>
+                        </tr>
+                    <?php endforeach; ?>
                 </tbody>
             </table>
-            <div class="alert-message error"><?= "No Users Found" ?></div>
         </main>
     </div>
 </section>

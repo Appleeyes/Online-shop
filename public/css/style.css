@@ -1039,6 +1039,10 @@ footer .copyright {
   margin-left: 1.5rem;
 }
 
+#dashboard main img{
+  width: 50px;
+}
+
 #dashboard main h2{
   margin: 0 0 2rem 0;
   line-height: 1;

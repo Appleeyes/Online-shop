@@ -1,4 +1,5 @@
 <?php
+$activePage = 'admin';
 require_once __DIR__ . '/../../templates/header.php';
 require_once __DIR__ . '/../../templates/navigation.php';
 
@@ -24,7 +25,7 @@ require_once __DIR__ . '/../../templates/navigation.php';
     <div class="dashboard-container">
         <?php require_once __DIR__ . '/../../templates/aside.php'; ?>
         <main>
-            <h2>Manage Posts</h2>
+            <h2>Manage Users</h2>
             <table>
                 <thead>
                     <tr>

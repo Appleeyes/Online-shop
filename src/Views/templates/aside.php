@@ -6,7 +6,7 @@
             </a>
         </li>
         <li>
-            <a class="active" href="index.php"><i class="fa-regular fa-paste"></i>
+            <a class="<?php if ($activePage === 'admin') echo 'active'; ?>" href="<?= BASE_URL ?>admin"><i class="fa-regular fa-paste"></i>
                 <h5>Manage Post</h5>
             </a>
         </li>
@@ -16,7 +16,7 @@
             </a>
         </li>
         <li>
-            <a href="admin/order"><i class="fa-solid fa-user-group"></i>
+            <a class="<?php if ($activePage === 'paidOrders') echo 'active'; ?>" href="<?= BASE_URL ?>admin/paidOrders"><i class="fa-solid fa-user-group"></i>
                 <h5>Manage Order</h5>
             </a>
         </li>

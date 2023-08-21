@@ -80,11 +80,10 @@ class AdminController
         }
     }
     
-    public function showPaidOrder()
+    public function showPaidOrders()
     {
-        $is_paid = $_SESSION['is_paid'];
         $admin = new Admin();
-        $paidOrders = $admin->getOrders($is_paid);
+        $paidOrders = $admin->getOrders();
         require_once __DIR__ . '/../Views/Users/admin/paidOrders.php';
     }
 

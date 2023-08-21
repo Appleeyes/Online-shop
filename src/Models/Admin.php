@@ -17,9 +17,9 @@ class Admin
         $this->db = new Database();
     }
 
-    public function getOrders($is_paid)
+    public function getOrders()
     {
-        $query = "SELECT orders.orders_id, products.thumbnail, products.name, orders.size, products.price, orders.quantity, orders.subtotal
+        $query = "SELECT orders.order_id, products.thumbnail, products.name, orders.size, products.price, orders.quantity, orders.subtotal
                   FROM orders
                   JOIN products ON orders.product_id = products.product_id
                   WHERE orders.is_paid = 1";
