@@ -42,7 +42,7 @@ require_once __DIR__ . '/../../templates/navigation.php';
                             <td><?= $category->category_id ?></td>
                             <td><?= $category->title ?></td>
                             <td><?= $category->description ?></td>
-                            <td><a href="" class="btnn">Edit</a></td>
+                            <td><a href="<?= BASE_URL ?>admin/categories/update?id=<?= $category->category_id ?>" class=" btnn">Edit</a></td>
                             <td><a href="" class="btnn danger">Delete</a></td>
                         </tr>
                     <?php endforeach; ?>

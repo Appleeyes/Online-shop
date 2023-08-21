@@ -140,4 +140,33 @@ class AdminController
 
         }
     }
+
+    public function showUpdateCategoryForm()
+    {
+        $category_id = $_GET['id'];
+        $admin = new Admin();
+        $categoryData = $admin->fetchCategoryById($category_id);
+        require_once __DIR__ . '/../Views/Users/admin/updateCategory.php';
+    }
+
+    public function updateCategories(): void
+    {
+        // Handle form submission to add product
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            // Validate and sanitize input fields
+
+            $admin = new Admin();
+            $admin->category_id = $_POST['category_id'];
+            $admin->title = $_POST['title'];
+            $admin->description = $_POST['description'];
+
+            $result = $admin->updateCategory();
+
+            if ($result) {
+                $_SESSION['success_message'] = 'Category updated successfully.';
+                header('location: ' . BASE_URL . 'admin/categories');
+                die();
+            }
+        }
+    }
 }

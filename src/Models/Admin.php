@@ -12,6 +12,7 @@ class Admin
 {
     public $title;
     public $description;
+    public $category_id;
     protected $db;
 
     public function __construct()
@@ -63,5 +64,25 @@ class Admin
             die('<p class="error">Categories insertion failed: ' . $e->getMessage() . '</p>');
             return false;
         }
+    }
+
+    public function fetchCategoryById($category_id)
+    {
+        $query = "SELECT * FROM categories WHERE category_id = ?";
+        return $this->db->fetch($query, [$category_id]);
+    }
+
+    public function updateCategory(): bool
+    {
+        $data = [
+            'title' => $this->title,
+            'description' => $this->description,
+        ];
+
+        $condition = "category_id = :category_id";
+        $data['category_id'] = $this->category_id;
+
+        $db = new Database();
+        return $db->update('categories', $data, $condition);
     }
 }
