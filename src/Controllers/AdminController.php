@@ -107,4 +107,12 @@ class AdminController
             exit();
         }
     }
+
+    public function showCategories(): void
+    {
+        $admin = new Admin();
+        $categories = $admin->getCategories();
+        require_once __DIR__ . '/../Views/Users/admin/categories.php';
+    }
+
 }

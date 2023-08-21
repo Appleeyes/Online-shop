@@ -46,4 +46,11 @@ class Admin
             die('<p class="error">Failed to remove users from base: ' . $e->getMessage() . '</p>');
         }
     }
+
+    public function getCategories(): array
+    {
+        $query = "SELECT * FROM categories";
+        $categories = $this->db->fetchAll($query);
+        return $categories;
+    }
 }

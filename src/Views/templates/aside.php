@@ -26,7 +26,7 @@
             </a>
         </li>
         <li>
-            <a href="manage-category.php"><i class="fa-solid fa-list-ul"></i>
+            <a class="<?php if ($activePage === 'categories') echo 'active'; ?>" href="<?= BASE_URL ?>admin/categories"><i class="fa-solid fa-list-ul"></i>
                 <h5>Manage Category</h5>
             </a>
         </li>
