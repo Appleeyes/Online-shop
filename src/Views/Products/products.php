@@ -17,6 +17,20 @@ require_once __DIR__ . '/../templates/navigation.php';
         </div>
         <?php unset($_SESSION['success_message']); ?>
     <?php endif; ?>
+    <div style="background-color: #03413c; padding: 50px;">
+        <div>
+            <section id="search-bar" class="padding-all" style="margin-bottom: 50px; margin-top: 0;">
+                <form class="search-container" action="<?= BASE_URL ?>product/search" method="GET">
+                    <div>
+                        <i class="fa-solid fa-magnifying-glass"></i>
+                        <input type="search" name="search" placeholder="Search" />
+                    </div>
+                    <button type="submit" name="submit" class="btnn">Go</button>
+                </form>
+            </section>
+        </div>
+    </div>
+
     <div class="pro-container">
         <?php foreach ($products as $product) : ?>
             <input type="hidden" name="product_id" value="<?php echo $product->product_id; ?>">

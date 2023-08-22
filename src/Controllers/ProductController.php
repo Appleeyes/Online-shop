@@ -198,4 +198,21 @@ class ProductController
         $featuredProducts = $product->getFeaturedProducts(8);
         require_once __DIR__ . '/../Views/Products/productDetails.php';
     }
+
+    
+    public function userSearch()
+    {
+        if ($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET['submit']) && isset($_GET['search'])) {
+            $keyword = $_GET['search'];
+
+            $product = new Product();
+            $searchResults = $product->searchProducts($keyword);
+
+            if ($searchResults) 
+            {
+                require_once __DIR__ . '/../Views/Products/userSearchResults.php';
+                exit();
+            }
+        }
+    }
 }

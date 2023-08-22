@@ -260,4 +260,19 @@ class AdminController
             exit();
         }
     }
+
+    public function adminSearch()
+    {
+        if ($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET['submit']) && isset($_GET['search'])) {
+            $keyword = $_GET['search'];
+
+            $product = new Product();
+            $searchResults = $product->searchProducts($keyword);
+
+            if ($searchResults) {
+                require_once __DIR__ . '/../Views/Users/admin/adminSearchResults.php';
+                exit();
+            }
+        }
+    }
 }

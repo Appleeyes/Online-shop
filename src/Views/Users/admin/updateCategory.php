@@ -20,7 +20,7 @@ $category_id = $_GET['id'];
             </div>
             <div class="mb-3">
                 <label style="font-weight: 800;" for="description" class="form-label">Description</label>
-                <textarea class="form-control" rows="10" name="description" placeholder="Category Description" required><?= $categoryData->description; ?>"</textarea>
+                <textarea class="form-control" rows="10" name="description" placeholder="Category Description" required><?= $categoryData->description; ?></textarea>
             </div>
             <div class="d-grid gap-2 col-6 mx-auto">
                 <button style="color: black; font-weight: 800;" class="btn btn-primary" type="submit">Update</button>

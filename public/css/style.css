@@ -874,6 +874,54 @@ footer .copyright {
 
 /* Contact Page end */
 
+/* search bar */
+#search-bar {
+  margin-top: 7rem;
+  width: 50%;
+  margin-left: 25%;
+}
+
+#search-bar .search-container {
+  position: relative;
+  width: 100%;
+  background: rgba(255, 255, 255);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  overflow: hidden;
+  padding: 0.6rem 1rem;
+  border-radius: 5px;
+  color: grey;
+}
+
+#search-bar div {
+  width: 100%;
+  display: flex;
+  align-items: center;
+}
+
+#search-bar input {
+  background-color: transparent;
+  border: none;
+  margin-left: 0.7rem;
+  padding: 0.5rem 0;
+  width: 100%;
+  outline: none;
+}
+
+#search-bar .btnn {
+  display: inline;
+  width: fit-content;
+  padding: 0.6rem 1.2rem;
+  background-color: #03413c;
+  border-radius: 10px;
+  border: none;
+  cursor: pointer;
+  transition: var(--transition);
+  font-weight: 700;
+  color: #000;
+}
+
 /* Cart Page start */
 #cart{
   overflow-x: auto;
@@ -1237,6 +1285,13 @@ td .btnn.danger{
 td .btnn{
   font-size: 15px;
 }
+
+/* search bar */
+#search-bar {
+    margin-top: 4rem;
+    width: 70%;
+    margin-left: 15%;
+  }
 }
 
 
@@ -1430,5 +1485,11 @@ td .btnn{
 
   #dashboard main table tr:nth-child(even){
     background-color: rgba(255, 255, 255, 0.2);
+  }
+
+  /* search bar */
+  #search-bar {
+    width: 100%;
+    margin-left: 0;
   }
 }

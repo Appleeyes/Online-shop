@@ -27,6 +27,15 @@ require_once __DIR__ . '/../../templates/navigation.php';
         <?php require_once __DIR__ . '/../../templates/aside.php'; ?>
         <main>
             <h2>List Of Products</h2>
+            <section id="search-bar" class="padding-all" style="margin-bottom: 50px; margin-top: 0;">
+                <form class="search-container" action="<?= BASE_URL ?>admin/products/search" method="GET">
+                    <div>
+                        <i class="fa-solid fa-magnifying-glass"></i>
+                        <input type="search" name="search" placeholder="Search" />
+                    </div>
+                    <button type="submit" name="submit" class="btnn">Go</button>
+                </form>
+            </section>
             <table>
                 <thead>
                     <tr>

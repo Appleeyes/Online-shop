@@ -12,7 +12,7 @@ CREATE TABLE `users` (
 CREATE TABLE `categories` (
     category_id TINYINT NOT NULL AUTO_INCREMENT PRIMARY KEY,
     title VARCHAR(30) NOT NULL,
-    description VARCHAR(30) NOT NULL
+    description TEXT NOT NULL
 );
 
 -- PRODUCTS TABLE
@@ -20,7 +20,7 @@ CREATE TABLE `products` (
     product_id INT AUTO_INCREMENT PRIMARY KEY,
     name VARCHAR(30) NOT NULL,
     thumbnail VARCHAR(30) NOT NULL,
-    description VARCHAR(30) NOT NULL,
+    description TEXT NOT NULL,
     price DECIMAL(10,2) NOT NULL,
     category_id TINYINT NOT NULL,
     is_featured TINYINT(1) UNSIGNED NOT NULL DEFAULT 1 COMMENT '0 = yes, 1 = no',

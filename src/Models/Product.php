@@ -120,4 +120,17 @@ class Product
         return $products;
     }
 
+    public function searchProducts($keyword): array
+    {
+        $query = "SELECT p.*, c.title as category_title 
+              FROM products p 
+              JOIN categories c ON p.category_id = c.category_id 
+              WHERE p.name LIKE :keyword OR c.title LIKE :keyword";
+        $params = [
+            ':keyword' => '%' . $keyword . '%',
+        ];
+        $products = $this->db->fetchAll($query, $params);
+        return $products;
+    }
+
 }
