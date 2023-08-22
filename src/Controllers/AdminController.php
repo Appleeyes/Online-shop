@@ -218,4 +218,46 @@ class AdminController
         $productData = $product->getProducts();
         require_once __DIR__ . '/../Views/Users/admin/products.php';
     }
+
+    public function removeProducts()
+    {
+        if ($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET['product_id'])) {
+            $product_id = $_GET['product_id'];
+
+            $product = new Product();
+            $products = $product->fetchProductById($product_id); // Fetch user data
+
+            if ($products) {
+                $admin = new Admin();
+                $result = $admin->removeProduct($product_id);
+
+                $thumbnailPath = __DIR__ . '/../../../Online-shop/public/db-img/';
+                $thumbnailName = basename($products->thumbnail);
+                // Construct the full path to the thumbnail
+                $fullThumbnailPath = $thumbnailPath . $thumbnailName;
+
+                // Check if the thumbnail file exists and delete it
+                if (file_exists($fullThumbnailPath)) {
+                    if (unlink($fullThumbnailPath)) {
+                        $_SESSION['success_message'] .= ' Thumbnail deleted.';
+                    } else {
+                        $_SESSION['error_message'] .= ' Unable to delete thumbnail.';
+                    }
+                } else {
+                    $_SESSION['error_message'] .= ' Thumbnail not found.';
+                }
+
+                if ($result) {
+                    $_SESSION['success_message'] = 'Product deleted successfully.';
+                } else {
+                    $_SESSION['error_message'] = 'Unable to delete Product.';
+                }
+            } else {
+                $_SESSION['error_message'] = 'Product not found.';
+            }
+
+            header('Location: ' . BASE_URL . 'admin/products');
+            exit();
+        }
+    }
 }

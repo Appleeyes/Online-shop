@@ -37,7 +37,8 @@ require_once __DIR__ . '/../../templates/navigation.php';
                         <th>Category</th>
                         <th>Featured</th>
                         <th>New</th>
-                        <th>Action</th>
+                        <th>Edit</th>
+                        <th>Delete</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -48,9 +49,10 @@ require_once __DIR__ . '/../../templates/navigation.php';
                             <td><img src="<?= BASE_URL . 'public/db-img/' . basename($product->thumbnail) ?>" alt="<?= $product->name ?>"></td>
                             <td>$<?= $product->price ?></td>
                             <td><?= $product->category_title ?></td>
-                            <td>$<?= $product->is_featured ?></td>
-                            <td><?= $product->is_new ?></td>
-                            <td><a href="<?= BASE_URL ?>admin/delete-user.php?Id=<?= $user['Id'] ?>" class="btnn danger">Delete</a></td>
+                            <td><?= ($product->is_featured == 0) ? 'Yes' : 'No' ?></td>
+                            <td><?= ($product->is_new == 0) ? 'Yes' : 'No' ?></td>
+                            <td><a href="<?= BASE_URL ?>product/update?id=<?= $product->product_id ?>" class=" btnn">Edit</a></td>
+                            <td><a class="btnn danger" href="<?= BASE_URL . 'admin/products/remove?product_id=' . $product->product_id ?>">Delete</a></td>
                         </tr>
                     <?php endforeach; ?>
                 </tbody>

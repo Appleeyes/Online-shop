@@ -1,8 +1,8 @@
 <aside>
     <ul>
         <li>
-            <a href="add-post.php"><i class="fa-solid fa-pencil"></i>
-                <h5>Add Post</h5>
+            <a href="<?= BASE_URL ?>product/add"><i class="fa-solid fa-pencil"></i>
+                <h5>Add Product</h5>
             </a>
         </li>
         <li>

@@ -105,4 +105,18 @@ class Admin
             die('<p class="error">Failed to remove category from base: ' . $e->getMessage() . '</p>');
         }
     }
+
+    public function removeProduct($product_id)
+    {
+        $query = "DELETE FROM products WHERE product_id = :product_id";
+        $params = [
+            ':product_id' => $product_id,
+        ];
+
+        try {
+            return $this->db->delete($query, $params);
+        } catch (\PDOException $e) {
+            die('<p class="error">Failed to remove product from base: ' . $e->getMessage() . '</p>');
+        }
+    }
 }

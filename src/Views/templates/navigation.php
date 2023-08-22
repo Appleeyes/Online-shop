@@ -24,7 +24,7 @@ if (isset($_SESSION['user_id'])) {
             <?php if (isset($_SESSION['user_id'])) : ?>
                 <?php if (isset($_SESSION['user_role']) && $_SESSION['user_role']) : ?>
                     <!-- User is an admin -->
-                    <?php if ($activePage === 'admin' || $activePage === 'paidOrders' || $activePage === 'addAdmin' || $activePage === 'categories'|| $activePage === 'addCategory'|| $activePage === 'updateCategory') : ?>
+                    <?php if ($activePage === 'admin' || $activePage === 'paidOrders' || $activePage === 'addAdmin' || $activePage === 'categories'|| $activePage === 'addCategory'|| $activePage === 'updateCategory'|| $activePage === 'addProduct' || $activePage === 'updateProduct') : ?>
                         <li><a href="<?= BASE_URL ?>logout">Logout</a></li>
                         <div class="user-thumb">
                             <?php

@@ -49,6 +49,8 @@ $router->get(path: BASE_URL . 'admin/categories/update', handler: AdminControlle
 $router->post(path: BASE_URL . 'admin/categories/update', handler: AdminController::class . '::updateCategories');
 $router->get(path: BASE_URL . 'admin/categories/remove', handler: AdminController::class . '::removeCategories');
 $router->get(path: BASE_URL . 'admin/products', handler: AdminController::class . '::showProductTable');
+$router->get(path: BASE_URL . 'admin/products/remove', handler: AdminController::class . '::removeProducts');
+
 
 
 

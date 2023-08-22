@@ -90,7 +90,7 @@ class ProductController
 
                 if ($result) {
                     $_SESSION['success_message'] = 'Product added successfully.';
-                    header('location: ' . BASE_URL . 'product/add');
+                    header('location: ' . BASE_URL . 'admin/products');
                     die();
                 }
             }            
@@ -183,7 +183,7 @@ class ProductController
 
                 if ($result) {
                     $_SESSION['success_message'] = 'Product updated successfully.';
-                    header('location: ' . BASE_URL .'product/update?id=' . $product->product_id);
+                    header('location: ' . BASE_URL .'admin/products');
                     die();
                 }
             }
