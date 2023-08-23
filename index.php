@@ -25,6 +25,7 @@ $router->get(path: BASE_URL . 'product/update', handler: ProductController::clas
 $router->post(path: BASE_URL . 'product/update', handler: ProductController::class . '::UpdateProduct');
 $router->get(path: BASE_URL . 'product/details', handler: ProductController::class . '::showProductDetails');
 $router->get(path: BASE_URL . 'product/search', handler: ProductController::class. '::userSearch');
+$router->get(path: BASE_URL . 'product/category', handler: ProductController::class . '::showCategoryProduct');
 $router->get(path: BASE_URL . 'register', handler: UserController::class . '::showUserRegisterForm');
 $router->post(path: BASE_URL . 'register/add', handler: UserController::class . '::registerUser');
 $router->get(path: BASE_URL . 'login', handler: UserController::class . '::showUserLoginForm');

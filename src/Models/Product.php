@@ -132,5 +132,11 @@ class Product
         $products = $this->db->fetchAll($query, $params);
         return $products;
     }
+    
 
+    public function fetchProductsByCategoryId($category_id)
+    {
+        $query = "SELECT * FROM products WHERE category_id = ?";
+        return $this->db->fetchAll($query, [$category_id]);
+    }
 }

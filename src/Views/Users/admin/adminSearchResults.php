@@ -12,8 +12,12 @@ require_once __DIR__ . '/../../templates/navigation.php';
     <div class="dashboard-container">
         <?php require_once __DIR__ . '/../../templates/aside.php'; ?>
         <main>
-            <?php if (!empty($searchResults)) : ?>
                 <h2>Search Results</h2>
+                <?php if (empty($searchResults)) : ?>
+            <div style="width: 100%;" class="alert alert-danger" role="alert">
+                <p style="width: 50%; margin: 0 auto;">No results found.</p>
+            </div>
+        <?php else : ?>
                 <table>
                     <thead>
                         <tr>
@@ -44,8 +48,6 @@ require_once __DIR__ . '/../../templates/navigation.php';
                         <?php endforeach; ?>
                     </tbody>
                 </table>
-            <?php else : ?>
-                <h1>No result found</h1>
             <?php endif; ?>
         </main>
     </div>

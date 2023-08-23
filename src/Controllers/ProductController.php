@@ -2,6 +2,7 @@
 
 namespace OnlineShop\Controllers;
 use OnlineShop\Models\Product;
+use OnlineShop\Models\Admin;
 
 ini_set('display_errors', 1);
 error_reporting(E_ALL);
@@ -24,9 +25,26 @@ class ProductController
         // Get paginated products
         $products = $product->getPaginatedProducts($currentPage, $perPage);
 
+        // Get product categories
+        $product = new Product();
+        $categories = $product->getCategories();
+
         require_once __DIR__ . '/../Views/Products/products.php';
     }
 
+    public function showCategoryProduct($params)
+    {
+        $category_id = $params['category_id'];
+
+        $product = new Product();
+        $categoryProducts = $product->fetchProductsByCategoryId($category_id);
+
+        // Fetch the category details
+        $admin = new Admin;
+        $category = $admin->fetchCategoryById($category_id);
+
+        require_once __DIR__ . '/../Views/Products/categoryProductList.php';
+    }
 
     public function showAddProductForm(): void
     {
@@ -208,11 +226,10 @@ class ProductController
             $product = new Product();
             $searchResults = $product->searchProducts($keyword);
 
-            if ($searchResults) 
-            {
-                require_once __DIR__ . '/../Views/Products/userSearchResults.php';
-                exit();
-            }
+            require_once __DIR__ . '/../Views/Products/userSearchResults.php';
         }
     }
+
+    
+
 }

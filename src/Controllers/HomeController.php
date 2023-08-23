@@ -10,6 +10,8 @@ class HomeController
         $productModel = new Product();
         $featuredProducts = $productModel->getFeaturedProducts(8);
         $newProducts = $productModel->getNewProducts(8);
+        $product = new Product();
+        $categories = $product->getCategories();
         require_once __DIR__ . '/../Views/Main/home.php';
     }
 }

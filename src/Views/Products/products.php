@@ -17,7 +17,7 @@ require_once __DIR__ . '/../templates/navigation.php';
         </div>
         <?php unset($_SESSION['success_message']); ?>
     <?php endif; ?>
-    <div style="background-color: #03413c; padding: 50px;">
+    <div style="background-color: rgb(128, 128, 128, 0.2); padding: 15px; margin-bottom: 20px;">
         <div>
             <section id="search-bar" class="padding-all" style="margin-bottom: 50px; margin-top: 0;">
                 <form class="search-container" action="<?= BASE_URL ?>product/search" method="GET">
@@ -31,10 +31,12 @@ require_once __DIR__ . '/../templates/navigation.php';
         </div>
     </div>
 
+    <?php require_once __DIR__ . '/../templates/category.php'; ?>
+
     <div class="pro-container">
         <?php foreach ($products as $product) : ?>
             <input type="hidden" name="product_id" value="<?php echo $product->product_id; ?>">
-            <div class="pro" onclick="window.location.href='product/details?id=<?php echo $product->product_id; ?>';">
+            <div class="pro" onclick="window.location.href='<?= BASE_URL ?>product/details?id=<?php echo $product->product_id; ?>';">
                 <img src="<?php echo BASE_URL . 'public/db-img/' . basename($product->thumbnail); ?>" alt="">
                 <div class="des">
                     <span><?php echo $product->category_title; ?></span>

@@ -269,10 +269,7 @@ class AdminController
             $product = new Product();
             $searchResults = $product->searchProducts($keyword);
 
-            if ($searchResults) {
-                require_once __DIR__ . '/../Views/Users/admin/adminSearchResults.php';
-                exit();
-            }
+            require_once __DIR__ . '/../Views/Users/admin/adminSearchResults.php';            
         }
     }
 }
