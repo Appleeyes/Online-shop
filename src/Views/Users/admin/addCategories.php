@@ -2,6 +2,13 @@
 $activePage = 'addCategory';
 require_once __DIR__ . '/../../templates/header.php';
 require_once __DIR__ . '/../../templates/navigation.php';
+require_once __DIR__ . '/../../../../config/auth.php';
+
+
+if (!authorizeAdmin()) {
+    // User is not authorized, show an error message or redirect
+    echo '<div class="alert alert-danger">You are not authorized to access this page.</div>';
+} else {
 ?>
 
 <div class="container my-5">
@@ -30,4 +37,5 @@ require_once __DIR__ . '/../../templates/navigation.php';
 
 <?php
 require_once __DIR__ . '/../../templates/footer.php';
+}
 ?>

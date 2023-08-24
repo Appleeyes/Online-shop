@@ -50,7 +50,7 @@ ini_set('display_errors', 1);
                     <td><?= $item->name ?></td>
                     <td><?= $item->size ?></td>
                     <td>$<?= $item->price ?></td>
-                    <td><?= $item->quantity ?></td>
+                    <td><input type="number" value="<?= $item->quantity ?>"></td>
                     <td>$<?= $item->subtotal ?></td>
                 </tr>
             <?php endforeach; ?>

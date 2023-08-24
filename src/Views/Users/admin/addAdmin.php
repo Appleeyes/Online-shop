@@ -2,7 +2,13 @@
 $activePage = 'addAdmin';
 require_once __DIR__ . '/../../templates/header.php';
 require_once __DIR__ . '/../../templates/navigation.php';
+require_once __DIR__ . '/../../../../config/auth.php';
 
+
+if (!authorizeAdmin()) {
+    // User is not authorized, show an error message or redirect
+    echo '<div class="alert alert-danger">You are not authorized to access this page.</div>';
+} else {
 // get back form data incase of error while filing the form
 $fullname = $_SESSION['user-data']['fullname'] ?? null;
 $email = $_SESSION['user-data']['email'] ?? null;
@@ -69,4 +75,5 @@ unset($_SESSION['user-data']);
 
 <?php
 require_once __DIR__ . '/../../templates/footer.php';
+}
 ?>
