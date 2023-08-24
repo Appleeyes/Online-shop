@@ -3,7 +3,7 @@
 namespace OnlineShop\Controllers;
 use OnlineShop\Models\Product;
 
-class HomeController
+class MainController
 {
     public function execute(): void
     {
@@ -13,6 +13,18 @@ class HomeController
         $product = new Product();
         $categories = $product->getCategories();
         require_once __DIR__ . '/../Views/Main/home.php';
+    }
+
+    public function showAboutPage(): void
+    {
+        
+        require_once __DIR__ . '/../Views/Main/about.php';
+    }
+
+    public function showContactPage(): void
+    {
+
+        require_once __DIR__ . '/../Views/Main/contact.php';
     }
 }
 

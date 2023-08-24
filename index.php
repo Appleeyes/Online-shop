@@ -3,7 +3,7 @@ declare(strict_types=1);
 define('BASE_URL', '/Online-shop/');
 
 use OnlineShop\App\Router;
-use OnlineShop\Controllers\HomeController;
+use OnlineShop\Controllers\MainController;
 use OnlineShop\Controllers\ProductController;
 use OnlineShop\Controllers\CartController;
 use OnlineShop\Controllers\UserController;
@@ -17,7 +17,9 @@ require_once __DIR__ . "/config/database.php";
 
 $router = new Router();
 
-$router->get(path: BASE_URL, handler:HomeController::class . '::execute');
+$router->get(path: BASE_URL, handler:MainController::class . '::execute');
+$router->get(path: BASE_URL . 'about', handler: MainController::class . '::showAboutPage');
+$router->get(path: BASE_URL . 'contact', handler: MainController::class . '::showContactPage');
 $router->get(path: BASE_URL . 'product', handler: ProductController::class . '::execute');
 $router->get(path: BASE_URL . 'product/add', handler: ProductController::class . '::showAddProductForm');
 $router->post(path: BASE_URL . 'product/add', handler: ProductController::class . '::addProduct');
@@ -54,20 +56,6 @@ $router->get(path: BASE_URL . 'admin/products', handler: AdminController::class 
 $router->get(path: BASE_URL . 'admin/products/remove', handler: AdminController::class . '::removeProducts');
 $router->get(path: BASE_URL . 'admin/products/search', handler: AdminController::class . '::adminSearch');
 
-
-
-
-
-
-
-
-
-
-
-
-$router->get(BASE_URL . 'about', function () {
-    echo 'About Page';
-});
 
 $router->addNotFoundHandler(function () {
     require_once __DIR__ . '/src/Views/templates/404.php';

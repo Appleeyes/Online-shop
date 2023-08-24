@@ -19,12 +19,12 @@ if (isset($_SESSION['user_id'])) {
         <ul id="navbar">
             <li><a class="<?php if ($activePage === '') echo 'active'; ?>" href="<?= BASE_URL ?>">Home</a></li>
             <li><a class="<?php if ($activePage === 'product') echo 'active'; ?>" href="<?= BASE_URL ?>product">Shop</a></li>
-            <li><a class="<?php if ($activePage === 'about') echo 'active'; ?>" href="">About</a></li>
-            <li><a class="<?php if ($activePage === 'contact') echo 'active'; ?>" href="">Contact</a></li>
+            <li><a class="<?php if ($activePage === 'about') echo 'active'; ?>" href="<?= BASE_URL ?>about">About</a></li>
+            <li><a class="<?php if ($activePage === 'contact') echo 'active'; ?>" href="<?= BASE_URL ?>contact">Contact</a></li>
             <?php if (isset($_SESSION['user_id'])) : ?>
                 <?php if (isset($_SESSION['user_role']) && $_SESSION['user_role']) : ?>
                     <!-- User is an admin -->
-                    <?php if ($activePage === 'admin' || $activePage === 'paidOrders' || $activePage === 'addAdmin' || $activePage === 'categories'|| $activePage === 'addCategory'|| $activePage === 'updateCategory'|| $activePage === 'addProduct' || $activePage === 'updateProduct') : ?>
+                    <?php if ($activePage === 'admin' || $activePage === 'paidOrders' || $activePage === 'addAdmin' || $activePage === 'categories' || $activePage === 'addCategory' || $activePage === 'updateCategory' || $activePage === 'addProduct' || $activePage === 'updateProduct') : ?>
                         <li><a href="<?= BASE_URL ?>logout">Logout</a></li>
                         <div class="user-thumb">
                             <?php
@@ -45,13 +45,13 @@ if (isset($_SESSION['user_id'])) {
                     <?php endif; ?>
                 <?php else : ?>
                     <li><a href="<?= BASE_URL ?>logout">Logout</a></li>
-                        <div class="user-thumb">
-                            <?php
-                            $thumbnailPath = BASE_URL . 'public/db-img/' . basename($_SESSION['user_thumbnail']);
-                            ?>
-                            <a href="#"><img src="<?= $thumbnailPath ?>" alt="User Thumbnail"></a>
-                        </div>
-                        <a href="#" id="close"><i class="fas fa-times"></i></a>
+                    <div class="user-thumb">
+                        <?php
+                        $thumbnailPath = BASE_URL . 'public/db-img/' . basename($_SESSION['user_thumbnail']);
+                        ?>
+                        <a href="#"><img src="<?= $thumbnailPath ?>" alt="User Thumbnail"></a>
+                    </div>
+                    <a href="#" id="close"><i class="fas fa-times"></i></a>
                 <?php endif; ?>
             <?php else : ?>
                 <!-- User is not logged in -->
