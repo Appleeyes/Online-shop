@@ -44,6 +44,14 @@ require_once __DIR__ . '/../templates/navigation.php';
     </div>
 </section>
 
+<!-- Display success message -->
+<?php if (isset($_SESSION['success_message'])) : ?>
+    <div class="alert alert-success" role="alert">
+        <?php echo $_SESSION['success_message']; ?>
+    </div>
+    <?php unset($_SESSION['success_message']); ?>
+<?php endif; ?>
+
 <div style="background-color: rgb(128, 128, 128, 0.2); padding: 15px; margin-bottom: 20px;">
     <!-- Display product details here -->
     <div style="display: flex; width: 100%; justify-content: space-around; margin-top: 20px;">
@@ -85,7 +93,7 @@ require_once __DIR__ . '/../templates/navigation.php';
                         <div class="user-info" style="display: flex; margin-bottom: 0;">
                             <div class="user-thumb">
                                 <?php
-                                $thumbnailPath = BASE_URL . 'public/db-img/' . basename($_SESSION['user_thumbnail']);
+                                $thumbnailPath = BASE_URL . 'public/db-img/' . basename($review->thumbnail); 
                                 ?>
                                 <a href="#"><img src="<?= $thumbnailPath ?>" alt="User Thumbnail"></a>
                             </div>

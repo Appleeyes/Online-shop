@@ -36,7 +36,7 @@ class Product
     {
         $query = "SELECT p.*, c.title AS category_title
               FROM products AS p
-              JOIN categories AS c ON p.category_id = c.category_id";
+              JOIN categories AS c ON p.category_id = c.category_id ORDER BY p.name ASC";
         $products = $this->db->fetchAll($query);
         return $products;
     }
@@ -46,7 +46,7 @@ class Product
         $query = "SELECT p.*, c.title as category_title 
           FROM products p 
           JOIN categories c ON p.category_id = c.category_id 
-          WHERE p.is_featured = 0 
+          WHERE p.is_featured = 0 ORDER BY p.name ASC
           LIMIT 8";
         $featuredProducts = $this->db->fetchAll($query);
         return $featuredProducts;
@@ -57,7 +57,7 @@ class Product
         $query = "SELECT p.*, c.title as category_title 
           FROM products p 
           JOIN categories c ON p.category_id = c.category_id 
-          WHERE p.is_new = 0 
+          WHERE p.is_new = 0 ORDER BY p.name ASC
           LIMIT 8";
         $newProducts = $this->db->fetchAll($query);
         return $newProducts;

@@ -17,7 +17,7 @@ require_once __DIR__ . '/../templates/navigation.php';
                 <div class="user-info" style="display: flex; margin-bottom: 0;">
                     <div class="user-thumb">
                         <?php
-                        $thumbnailPath = BASE_URL . 'public/db-img/' . basename($_SESSION['user_thumbnail']);
+                        $thumbnailPath = BASE_URL . 'public/db-img/' . basename($review->thumbnail); 
                         ?>
                         <a href="#"><img src="<?= $thumbnailPath ?>" alt="User Thumbnail"></a>
                     </div>

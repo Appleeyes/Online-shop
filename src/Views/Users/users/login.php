@@ -18,6 +18,14 @@ unset($_SESSION['login-data']);
         </div>
         <?php unset($_SESSION['error_message']); ?>
     <?php endif; ?>
+    <!-- Display success message -->
+    <?php if (isset($_SESSION['success_message'])) : ?>
+        <div class="alert alert-success" role="alert">
+            <?php echo $_SESSION['success_message']; ?>
+        </div>
+        <?php unset($_SESSION['success_message']); ?>
+    <?php endif; ?>
+
     <h1 class="my-5">LOGIN FORM</h1>
     <hr>
     <div style="display: flex; width: 80%; background-color: #e3e6f3; padding: 30px;">

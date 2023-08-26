@@ -68,8 +68,8 @@ class UserController
                 $result = $user->register();
 
                 if ($result) {
-                    $_SESSION['success_message'] = 'User successfully registered.';
-                    header('location: ' . BASE_URL . 'register');
+                    $_SESSION['success_message'] = 'User successfully registered, please log in.';
+                    header('location: ' . BASE_URL . 'login');
                     die();
                 }
             }     

@@ -13,14 +13,6 @@ unset($_SESSION['user-data']);
 ?>
 
 <div class="container my-5">
-    <!-- Display success message -->
-    <?php if (isset($_SESSION['success_message'])) : ?>
-        <div class="alert alert-success" role="alert">
-            <?php echo $_SESSION['success_message']; ?>
-        </div>
-        <?php unset($_SESSION['success_message']); ?>
-    <?php endif; ?>
-
     <!-- Display error message -->
     <?php if (isset($_SESSION['error_message'])) : ?>
         <div class="alert alert-danger" role="alert">
