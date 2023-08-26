@@ -30,7 +30,7 @@ CREATE TABLE `products` (
 -- REVIEWS TABLE
 CREATE TABLE `reviews` (
     review_id INT AUTO_INCREMENT PRIMARY KEY,
-    review VARCHAR(30) NOT NULL,
+    review TEXT NOT NULL,
     rating TINYINT NOT NULL,
     user_id INT NOT NULL,
     product_id INT NOT NULL,

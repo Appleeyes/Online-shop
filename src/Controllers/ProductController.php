@@ -1,8 +1,11 @@
-<?php 
+<?php
 
 namespace OnlineShop\Controllers;
+
 use OnlineShop\Models\Product;
 use OnlineShop\Models\Admin;
+use OnlineShop\Models\Review;
+
 
 ini_set('display_errors', 1);
 error_reporting(E_ALL);
@@ -85,7 +88,7 @@ class ProductController
                 $extension = end($extension);
                 if (in_array($extension, $allowed_files)) {
                     // make sure image size is not too big
-                    if ($_FILES['thumbnail']['size'] < 3000000){
+                    if ($_FILES['thumbnail']['size'] < 3000000) {
                         // upload image
                         move_uploaded_file($tempFilePath, $destinationPath . $fileName);
                     } else {
@@ -111,14 +114,14 @@ class ProductController
                     header('location: ' . BASE_URL . 'admin/products');
                     die();
                 }
-            }            
+            }
         }
     }
 
 
     public function showUpdateProductForm()
     {
-        $product_id = $_GET['id']; 
+        $product_id = $_GET['id'];
         $product = new Product();
         $categories = $product->getCategories();
         $productData = $product->fetchProductById($product_id);
@@ -201,7 +204,7 @@ class ProductController
 
                 if ($result) {
                     $_SESSION['success_message'] = 'Product updated successfully.';
-                    header('location: ' . BASE_URL .'admin/products');
+                    header('location: ' . BASE_URL . 'admin/products');
                     die();
                 }
             }
@@ -214,10 +217,41 @@ class ProductController
         $product = new Product();
         $productDetails = $product->fetchProductById($product_id);
         $featuredProducts = $product->getFeaturedProducts(8);
+
+        $review = new Review;
+        $reviews = $review->getLimitedProductReviews($product_id, 3);
         require_once __DIR__ . '/../Views/Products/productDetails.php';
     }
 
-    
+    public function  showReviewPage()
+    {
+        $product_id = $_GET['id'];
+        $user_id = $_SESSION['user_id'];
+
+        $review = new Review;
+        $reviewPage = $review->getProductReviews($product_id);
+        require_once __DIR__ . '/../Views/Products/reviews.php';
+    }
+
+    public function addReview()
+    {
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            $user_id = $_SESSION['user_id'];
+            $product_id = $_POST['product_id'];
+            $rating = $_POST['rating'];
+            $review = $_POST['review'];
+
+            $reviewModel = new Review;
+            $result = $reviewModel->addReview($product_id, $user_id, $rating, $review);
+
+            if ($result) {
+                $_SESSION['success_message'] = 'Review added successfully.';
+                header('location: ' . BASE_URL .'product/details?id=' . $product_id);
+                exit();
+            }
+        }
+    }
+
     public function userSearch()
     {
         if ($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET['submit']) && isset($_GET['search'])) {
@@ -229,7 +263,4 @@ class ProductController
             require_once __DIR__ . '/../Views/Products/userSearchResults.php';
         }
     }
-
-    
-
 }

@@ -44,6 +44,66 @@ require_once __DIR__ . '/../templates/navigation.php';
     </div>
 </section>
 
+<div style="background-color: rgb(128, 128, 128, 0.2); padding: 15px; margin-bottom: 20px;">
+    <!-- Display product details here -->
+    <div style="display: flex; width: 100%; justify-content: space-around; margin-top: 20px;">
+        <!-- Form to add a new review -->
+        <section style="width: 40%;" id="add-review">
+            <h3 style="margin-bottom: 20px; font-weight: 800;">Add Your Review</h3>
+            <form action="<?= BASE_URL ?>product/review" method="post">
+                <div class="mb-3">
+                    <input type="hidden" name="product_id" value="<?php echo $productDetails->product_id; ?>">
+                    <label for="rating" style="font-weight: 800;" class="form-label">Rating:</label>
+                    <select class="form-select" id="category_id" name="rating" required>
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                        <option value="5">5</option>
+                    </select>
+                </div>
+                <div class="mb-3">
+                    <label for="review" style="font-weight: 800;" class="form-label">Comment:</label>
+                    <textarea name="review" class="form-control" rows="5" placeholder="Drop Some Review"></textarea>
+                </div>
+                <div class="d-grid gap-2 col-6 mx-auto">
+                    <button style="color: black; font-weight: 800;" class="btn btn-primary" type="submit">Submit Review</button>
+                </div>
+            </form>
+        </section>
+
+        <!-- Display existing reviews -->
+        <section style="width: 40%;" id="product-reviews">
+            <h3 style="margin-bottom: 20px; font-weight: 800;">Product Reviews</h3>
+            <?php if (empty($reviews)) : ?>
+                <div style="width: 100%;" class="alert alert-danger" role="alert">
+                    <p style="width: 50%; margin: 0 auto;">No reviews.</p>
+                </div>
+            <?php else : ?>
+                <?php foreach ($reviews as $review) : ?>
+                    <div class="review" style="margin-bottom: 20px;">
+                        <div class="user-info" style="display: flex; margin-bottom: 0;">
+                            <div class="user-thumb">
+                                <?php
+                                $thumbnailPath = BASE_URL . 'public/db-img/' . basename($_SESSION['user_thumbnail']);
+                                ?>
+                                <a href="#"><img src="<?= $thumbnailPath ?>" alt="User Thumbnail"></a>
+                            </div>
+                            <div class="review-details">
+                                <h6><strong><?= $review->fullname ?></strong> | <?= $review->created_at ?></h6>
+                                <p>Rating: <?= $review->rating ?>/5</p>
+                                <p><?= $review->review ?></p>
+                            </div>
+                        </div>
+                    </div>
+                <?php endforeach; ?>
+                <a class="btn btn-primary" href="<?= BASE_URL . 'product/all-reviews?id=' . $productDetails->product_id ?>">See more reviews</a>
+            <?php endif; ?>
+
+        </section>
+    </div>
+</div>
+
 <section id="product1" class="section-p1">
     <h2>Featured products</h2>
     <p>Summer Collection New Morden Design</p>
