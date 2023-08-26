@@ -2,12 +2,6 @@
 
 namespace OnlineShop\Models;
 
-ini_set('display_errors', 1);
-ini_set('display_startup_errors', 1);
-error_reporting(E_ALL);
-
-
-
 class User
 {
     public $user_id;
@@ -18,21 +12,33 @@ class User
     public $is_admin;
     protected $db;
 
+    /**
+     * @__construct: database construction
+     */
     public function __construct()
     {
         $this->db = new Database();
     }
 
+    /**
+     * @getPassword: get users Password
+     */
     public function getPassword()
     {
         return $this->password;
     }
 
+    /**
+     * @setPassword: set users Password
+     */
     public function setPassword($password)
     {
         $this->password = $password;
     }
 
+    /**
+     * @register: add users to database
+     */
     public function register()
     {
         $data = [
@@ -52,6 +58,9 @@ class User
         }
     }
 
+    /**
+     * @getUserByEmail: get User By Email from database
+     */
     public static function getUserByEmail($email)
     {
         $db = new Database();

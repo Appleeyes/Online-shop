@@ -2,16 +2,15 @@
 
 namespace OnlineShop\Models;
 
-ini_set('display_errors', 1);
-ini_set('display_startup_errors', 1);
-error_reporting(E_ALL);
-
 class PayPal
 {
     private $clientID;
     private $clientSecret;
     private $sandboxMode;
 
+    /**
+     * @__construct: paypal construction
+     */
     public function __construct()
     {
         require_once __DIR__ . '/../../config/config.php';
@@ -21,6 +20,9 @@ class PayPal
         $this->sandboxMode = PAYPAL_SANDBOX_MODE;
     }
 
+    /**
+     * @createOrder: create order to paypal sandbox
+     */
     public function createOrder($amount, $returnUrl, $currency = 'USD')
     {
         $url = $this->sandboxMode ? 'https://api.sandbox.paypal.com/v2/checkout/orders' : 'https://api.paypal.com/v2/checkout/orders';

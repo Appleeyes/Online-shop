@@ -3,8 +3,6 @@ $activePage = '';
 require_once __DIR__ . '/../templates/header.php';
 require_once __DIR__ . '/../templates/navigation.php';
 
-error_reporting(E_ALL);
-ini_set('display_errors', 1);
 ?>
 
 <section id="hero">

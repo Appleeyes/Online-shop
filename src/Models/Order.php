@@ -2,21 +2,22 @@
 
 namespace OnlineShop\Models;
 
-ini_set('display_errors', 1);
-ini_set('display_startup_errors', 1);
-error_reporting(E_ALL);
-
-
 class Order
 {
     public $product_id;
     protected $db;
 
+    /**
+     * @__construct: database construction
+     */
     public function __construct()
     {
         $this->db = new Database();
     }
 
+    /**
+     * @addOrder: add Order to database
+     */
     public function addOrder($size, $quantity, $subtotal, $product_id, $user_id)
     {
         $data = [
@@ -46,7 +47,9 @@ class Order
         }
     }
 
-
+    /**
+     * @markOrderAsPaid: mark Order As Paid in database
+     */
     public function markOrderAsPaid($user_id, $product_id)
     {
         $data = ['is_paid' => 1];

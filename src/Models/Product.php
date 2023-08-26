@@ -2,12 +2,6 @@
 
 namespace OnlineShop\Models;
 
-ini_set('display_errors', 1);
-ini_set('display_startup_errors', 1);
-error_reporting(E_ALL);
-
-
-
 class Product
 {
     public $product_id;
@@ -20,11 +14,17 @@ class Product
     public $is_new;
     protected $db;
 
+    /**
+     * @__construct: database construction
+     */
     public function __construct()
     {
         $this->db = new Database();
     }
 
+    /**
+     * @getCategories: get Categories from database
+     */
     public function getCategories(): array
     {
         $query = "SELECT * FROM categories";
@@ -32,6 +32,9 @@ class Product
         return $categories;
     }
 
+    /**
+     * @getProducts: get products from database
+     */
     public function getProducts(): array
     {
         $query = "SELECT p.*, c.title AS category_title
@@ -41,6 +44,9 @@ class Product
         return $products;
     }
 
+    /**
+     * @getFeaturedProducts: get featured products from database
+     */
     public function getFeaturedProducts($limit = 8): array
     {
         $query = "SELECT p.*, c.title as category_title 
@@ -52,6 +58,9 @@ class Product
         return $featuredProducts;
     }
 
+    /**
+     * @getNewProducts: get new products from database
+     */
     public function getNewProducts($limit = 8): array
     {
         $query = "SELECT p.*, c.title as category_title 
@@ -63,6 +72,9 @@ class Product
         return $newProducts;
     }
 
+    /**
+     * @create: insert new products into database
+     */
     public function create(): bool
     {
         $data = [
@@ -84,12 +96,18 @@ class Product
         }
     }
 
+    /**
+     * @fetchProductById: get products by their id from database
+     */
     public function fetchProductById($product_id)
     {
         $query = "SELECT p.*, c.title as category_title FROM products p JOIN categories c ON p.category_id = c.category_id WHERE p.product_id = ?";
         return $this->db->fetch($query, [$product_id]);
     }
 
+    /**
+     * @update: update products from database
+     */
     public function update(): bool
     {
         $data = [
@@ -109,6 +127,9 @@ class Product
         return $db->update('products', $data, $condition);
     }
 
+    /**
+     * @getPaginatedProducts: get Paginated Products from database
+     */
     public function getPaginatedProducts($page = 1, $perPage = 12): array
     {
         $offset = ($page - 1) * $perPage;
@@ -120,6 +141,9 @@ class Product
         return $products;
     }
 
+    /**
+     * @searchProducts: search Products using keywords from database
+     */
     public function searchProducts($keyword): array
     {
         $query = "SELECT p.*, c.title as category_title 
@@ -132,8 +156,10 @@ class Product
         $products = $this->db->fetchAll($query, $params);
         return $products;
     }
-    
 
+    /**
+     * @fetchProductsByCategoryId: fetch Products By Category Id from database
+     */
     public function fetchProductsByCategoryId($category_id)
     {
         $query = "SELECT * FROM products WHERE category_id = ?";

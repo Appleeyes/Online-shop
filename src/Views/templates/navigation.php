@@ -3,7 +3,7 @@
 use OnlineShop\Models\Cart;
 
 $cartModel = new Cart();
-$cartCount = 0; // Default value
+$cartCount = 0;
 
 // Check if the user is logged in
 if (isset($_SESSION['user_id'])) {

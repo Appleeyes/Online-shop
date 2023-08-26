@@ -9,6 +9,11 @@ use OnlineShop\Models\Product;
 
 class AdminController
 {
+    /**
+     * @execute: shows admin page
+     * @getUsers: get users from database
+     * return: void
+     */
     public function execute(): void
     {
         $admin = new Admin();
@@ -16,11 +21,20 @@ class AdminController
         require_once __DIR__ . '/../Views/Users/admin/index.php';
     }
 
+    /**
+     * @showAdminForm
+     * return: void
+     */
     public function showAddAdminForm()
     {
         require_once __DIR__ . '/../Views/Users/admin/addAdmin.php';
     }
 
+    /**
+     * @addAdmin
+     * @setPassword: set users password
+     * return: void
+     */
     public function addAdmin(): void
     {
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
@@ -35,26 +49,21 @@ class AdminController
                 $_SESSION['error_message'] = "Passwords do not match.";
             }
 
-            // Handle image upload
             if ($_FILES['thumbnail']['error'] === UPLOAD_ERR_OK) {
                 $tempFilePath = $_FILES['thumbnail']['tmp_name'];
                 $fileName = $_FILES['thumbnail']['name'];
-                $user->thumbnail = 'images/' . $fileName; // Save relative path in the database
+                $user->thumbnail = 'images/' . $fileName;
 
-                // Make sure the destination directory exists
                 $destinationPath = __DIR__ . '/../../../Online-shop/public/db-img/';
                 if (!is_dir($destinationPath)) {
                     mkdir($destinationPath, 0777, true);
                 }
 
-                // make sure the file is an image
                 $allowed_files = ['png', 'jpg', 'jpeg'];
                 $extension = explode('.', $user->thumbnail);
                 $extension = end($extension);
                 if (in_array($extension, $allowed_files)) {
-                    // make sure image size is not too big
                     if ($_FILES['thumbnail']['size'] < 3000000) {
-                        // upload image
                         move_uploaded_file($tempFilePath, $destinationPath . $fileName);
                     } else {
                         $_SESSION['error_message'] = "File size is too big. Should be less than 3mb";
@@ -66,7 +75,6 @@ class AdminController
                 $_SESSION['error_message'] = "No image uploaded";
             }
 
-            // incase of error redirect back with form data
             if (isset($_SESSION['error_message'])) {
                 $_SESSION['user-data'] = $_POST;
                 header('location: ' . BASE_URL . 'admin/add');
@@ -82,7 +90,12 @@ class AdminController
             }
         }
     }
-    
+
+    /**
+     * @showPaidOrders
+     * @getOrders: get orders from database
+     * return: void
+     */
     public function showPaidOrders()
     {
         $admin = new Admin();
@@ -90,23 +103,26 @@ class AdminController
         require_once __DIR__ . '/../Views/Users/admin/paidOrders.php';
     }
 
+    /**
+     * @removeUsers
+     * @getUsersById: get users from database
+     * @removeUsers: remove users method
+     */
     public function removeUsers()
     {
         if ($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET['user_id'])) {
             $user_id = $_GET['user_id'];
 
             $admin = new Admin();
-            $user = $admin->getUsersById($user_id); // Fetch user data
+            $user = $admin->getUsersById($user_id);
 
             if ($user) {
                 $result = $admin->removeUsers($user_id);
 
                 $thumbnailPath = __DIR__ . '/../../../Online-shop/public/db-img/';
                 $thumbnailName = basename($user->thumbnail);
-                // Construct the full path to the thumbnail
                 $fullThumbnailPath = $thumbnailPath . $thumbnailName;
 
-                // Check if the thumbnail file exists and delete it
                 if (file_exists($fullThumbnailPath)) {
                     if (unlink($fullThumbnailPath)) {
                         $_SESSION['success_message'] .= ' Thumbnail deleted.';
@@ -132,6 +148,11 @@ class AdminController
     }
 
 
+    /**
+     * @showCategories¨
+     * @getCategories: get categories from database
+     * return: void
+     */
     public function showCategories(): void
     {
         $products = new Product();
@@ -139,16 +160,23 @@ class AdminController
         require_once __DIR__ . '/../Views/Users/admin/categories.php';
     }
 
+    /**
+     * @showCategoryForm
+     * return: void
+     */
     public function showCategoryForm(): void
     {
         require_once __DIR__ . '/../Views/Users/admin/addcategories.php';
     }
 
+    /**
+     * @addCategories
+     * @createCategories: create categories method
+     * return: void
+     */
     public function addCategories(): void
     {
-        // Handle form submission to add product
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-            // Validate and sanitize input fields
 
             $admin = new Admin();
             $admin->title = $_POST['title'];
@@ -164,6 +192,11 @@ class AdminController
         }
     }
 
+    /**
+     * @showUpdateCategoryForm
+     * @fetchCategoryById: fetch products from database
+     * return: void
+     */
     public function showUpdateCategoryForm()
     {
         $category_id = $_GET['id'];
@@ -172,11 +205,14 @@ class AdminController
         require_once __DIR__ . '/../Views/Users/admin/updateCategory.php';
     }
 
+    /**
+     * @updateCategories: update categories from database
+     * @updateCtaegory: update category method
+     * return: void
+     */
     public function updateCategories(): void
     {
-        // Handle form submission to add product
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-            // Validate and sanitize input fields
 
             $admin = new Admin();
             $admin->category_id = $_POST['category_id'];
@@ -193,6 +229,10 @@ class AdminController
         }
     }
 
+    /**
+     * @removeCategories: remove categories from database
+     * @removeCategory: remove category method
+     */
     public function removeCategories()
     {
         if ($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET['category_id'])) {
@@ -212,6 +252,11 @@ class AdminController
         }
     }
 
+    /**
+     * @showProductTable
+     * @getProducts: get products from database
+     * return: void
+     */
     public function showProductTable()
     {
         $product = new Product;
@@ -219,13 +264,18 @@ class AdminController
         require_once __DIR__ . '/../Views/Users/admin/products.php';
     }
 
+    /**
+     * @removeProducts: remove product
+     * @fetchProductById: Fetch user data
+     * @removeProduct: remove a product method
+     */
     public function removeProducts()
     {
         if ($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET['product_id'])) {
             $product_id = $_GET['product_id'];
 
             $product = new Product();
-            $products = $product->fetchProductById($product_id); // Fetch user data
+            $products = $product->fetchProductById($product_id); 
 
             if ($products) {
                 $admin = new Admin();
@@ -233,10 +283,8 @@ class AdminController
 
                 $thumbnailPath = __DIR__ . '/../../../Online-shop/public/db-img/';
                 $thumbnailName = basename($products->thumbnail);
-                // Construct the full path to the thumbnail
                 $fullThumbnailPath = $thumbnailPath . $thumbnailName;
 
-                // Check if the thumbnail file exists and delete it
                 if (file_exists($fullThumbnailPath)) {
                     if (unlink($fullThumbnailPath)) {
                         $_SESSION['success_message'] .= ' Thumbnail deleted.';
@@ -261,6 +309,10 @@ class AdminController
         }
     }
 
+    /**
+     * @adminSearch: adminsearch
+     * @searchProducts: search product method
+     */
     public function adminSearch()
     {
         if ($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET['submit']) && isset($_GET['search'])) {

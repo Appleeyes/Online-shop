@@ -2,15 +2,10 @@
 $activePage = 'cart';
 require_once __DIR__ . '/../templates/header.php';
 require_once __DIR__ . '/../templates/navigation.php';
-var_dump($user_id);
-var_dump($productIds);
 
-
-error_reporting(E_ALL);
-ini_set('display_errors', 1);
 ?>
 
-<section id="success-page" class="section-p1">
+<section style="margin: 30px auto; width: 60%;" id="success-page" class="section-p1">
     <div class="container">
         <div class="row justify-content-center">
             <div class="col-md-8 text-center">

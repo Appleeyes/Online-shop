@@ -28,6 +28,9 @@ Welcome to the Online Shop project! This project is a simple online shopping pla
 3. Configure the database connection in `config/database.php`
 4. Run the project using a local web server (e.g., Apache) or a development environment (e.g., XAMPP)
 5. Access the project in your browser: `http://localhost:3000/Online-shop/`
+6. Login with this info for paypal testing after checkout: 
+   - `Email:` sb-ixsnv27059878@personal.example.com
+   - `Password:` Apple@22
 
 ## Project Structure
 

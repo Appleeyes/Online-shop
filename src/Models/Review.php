@@ -2,19 +2,21 @@
 
 namespace OnlineShop\Models;
 
-ini_set('display_errors', 1);
-ini_set('display_startup_errors', 1);
-error_reporting(E_ALL);
-
 class Review
 {
     protected $db;
 
+    /**
+     * @__construct: database construction
+     */
     public function __construct()
     {
         $this->db = new Database();
     }
 
+    /**
+     * @addReview: add Review to database
+     */
     public function addReview($product_id, $user_id, $rating, $review)
     {
         $data = [
@@ -30,7 +32,10 @@ class Review
             die('<p class="error">Failed to add product review: ' . $e->getMessage() . '</p>');
         }
     }
-    
+
+    /**
+     * @getProductReviews: get Product Reviews from database
+     */
     public function getProductReviews($product_id)
     {
         $query = "SELECT r.*, u.fullname, u.thumbnail
@@ -41,6 +46,9 @@ class Review
         return $this->db->fetchAll($query, $params);
     }
 
+    /**
+     * @getLimitedProductReviews: get limited Product Reviews from database
+     */
     public function getLimitedProductReviews($product_id, $limit = 3)
     {
         $query = "SELECT r.*, u.fullname, u.thumbnail

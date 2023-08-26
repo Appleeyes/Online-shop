@@ -10,21 +10,37 @@ class Router
     private const METHOD_POST = 'POST';
     private const METHOD_GET = 'GET';
 
+    /**
+     * @get: method
+     * return: void
+     */
     public function get(string $path, $handler): void
     {
         $this->addHandler(method: self::METHOD_GET, path:$path, handler:$handler);
     }
 
+    /**
+     * @post: method
+     * return: void
+     */
     public function post(string $path, $handler): void
     {
         $this->addHandler(method:self::METHOD_POST, path:$path, handler:$handler);
     }
 
+    /**
+     * @addNotFoundHandler: show a not found page
+     * return: void
+     */
     public function addNotFoundHandler($handler): void
     {
         $this->notFoundHandler = $handler;
     }
 
+    /**
+     * @addHandler: to get files route
+     * return: void
+     */
     private function addHandler(string $method, string $path, $handler): void
     {
         $this->handlers[$method . $path] = [
@@ -34,6 +50,9 @@ class Router
         ];
     }
 
+    /**
+     * @run: run the routes
+     */
     public function run()
     {
         $requestUri = parse_url($_SERVER['REQUEST_URI']);

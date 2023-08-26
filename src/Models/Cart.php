@@ -2,20 +2,21 @@
 
 namespace OnlineShop\Models;
 
-ini_set('display_errors', 1);
-ini_set('display_startup_errors', 1);
-error_reporting(E_ALL);
-
-// Cart.php (model)
 class Cart
 {
     protected $db;
 
+    /**
+     * @__construct: database construction
+     */
     public function __construct()
     {
         $this->db = new Database();
     }
 
+    /**
+     * @addProduct: add products to database
+     */
     public function addProduct($user_id, $product_id, $size, $quantity)
     {
         $data = [
@@ -33,6 +34,9 @@ class Cart
         }
     }
 
+    /**
+     * @removeCartItem: remove Cart Item from database
+     */
     public function removeCartItem($user_id, $cart_id)
     {
         $query = "DELETE FROM carts WHERE cart_id = :cart_id AND user_id = :user_id";
@@ -48,6 +52,9 @@ class Cart
         }
     }
 
+    /**
+     * @clearUserCart: clear User Cart Items from database
+     */
     public function clearUserCart($user_id)
     {
         $query = "DELETE FROM carts WHERE user_id = :user_id";
@@ -57,7 +64,9 @@ class Cart
         return $db->delete($query, $params);
     }
 
-
+    /**
+     * @getUserCartItems: get User Cart Items from database
+     */
     public function getUserCartItems($user_id)
     {
         $query = "SELECT carts.cart_id, products.thumbnail, products.name, carts.size, products.price, carts.quantity, (products.price * carts.quantity) AS subtotal
@@ -69,6 +78,9 @@ class Cart
         return $this->db->fetchAll($query, $params);
     }
 
+    /**
+     * @getUserCartProductIds: get User Cart Items by id from database
+     */
     public function getUserCartProductIds($user_id)
     {
         $query = "SELECT product_id FROM carts WHERE user_id = :user_id";
@@ -84,9 +96,9 @@ class Cart
         return $productIds;
     }
 
-
-
-
+    /**
+     * @getCartCount: get User Cart Items count from database
+     */
     public function getCartCount($user_id)
     {
         $query = "SELECT COUNT(*) as count FROM carts WHERE user_id = :user_id";

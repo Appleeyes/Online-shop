@@ -7,34 +7,37 @@ use OnlineShop\Models\Admin;
 use OnlineShop\Models\Review;
 
 
-ini_set('display_errors', 1);
-error_reporting(E_ALL);
-
-
 class ProductController
 {
+    /**
+     * @execute: show product page
+     * @getProducts: get product method
+     * @getPaginatedProducts: get Paginated Products method
+     * @getCategories: get product Categories
+     * return: void
+     */
     public function execute(): void
     {
         $product = new Product();
         $perPage = 12;
         $currentPage = isset($_GET['page']) ? intval($_GET['page']) : 1;
 
-        // Get total number of products
         $totalProducts = count($product->getProducts());
-
-        // Calculate total pages
         $totalPages = ceil($totalProducts / $perPage);
 
-        // Get paginated products
         $products = $product->getPaginatedProducts($currentPage, $perPage);
 
-        // Get product categories
         $product = new Product();
         $categories = $product->getCategories();
 
         require_once __DIR__ . '/../Views/Products/products.php';
     }
 
+    /**
+     * @showCategoryProduct: show Category Product page
+     * @fetchProductsByCategoryId: get product by category method
+     * @fetchCategoryById: get category id method
+     */
     public function showCategoryProduct($params)
     {
         $category_id = $params['category_id'];
@@ -42,13 +45,17 @@ class ProductController
         $product = new Product();
         $categoryProducts = $product->fetchProductsByCategoryId($category_id);
 
-        // Fetch the category details
         $admin = new Admin;
         $category = $admin->fetchCategoryById($category_id);
 
         require_once __DIR__ . '/../Views/Products/categoryProductList.php';
     }
 
+    /**
+     * @showAddProductForm: show Add Product Form
+     * @getCategories: get category method
+     * return: void
+     */
     public function showAddProductForm(): void
     {
         $product = new Product();
@@ -56,40 +63,38 @@ class ProductController
         require_once __DIR__ . '/../Views/Products/addProduct.php';
     }
 
+    /**
+     * @addProduct:  Add Product to database
+     * @create: create method
+     * return: void
+     */
     public function addProduct(): void
     {
-        // Handle form submission to add product
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-            // Validate and sanitize input fields
 
             $product = new Product();
-            $product->name = $_POST['name'];
-            $product->description = $_POST['description'];
-            $product->price = $_POST['price'];
-            $product->category_id = $_POST['category_id'];
-            $product->is_featured = $_POST['is_featured'];
-            $product->is_new = $_POST['is_new'];
+            $product->name = filter_input($_POST['name'], FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+            $product->description = filter_input($_POST['description'], FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+            $product->price = filter_input($_POST['price'], FILTER_SANITIZE_NUMBER_FLOAT);
+            $product->category_id = filter_input($_POST['category_id'], FILTER_SANITIZE_NUMBER_INT);
+            $product->is_featured = filter_input($_POST['is_featured'], FILTER_SANITIZE_NUMBER_INT);
+            $product->is_new = filter_input($_POST['is_new'], FILTER_SANITIZE_NUMBER_INT);
 
-            // Handle image upload
             if ($_FILES['thumbnail']['error'] === UPLOAD_ERR_OK) {
                 $tempFilePath = $_FILES['thumbnail']['tmp_name'];
                 $fileName = $_FILES['thumbnail']['name'];
-                $product->thumbnail = 'images/' . $fileName; // Save relative path in the database
+                $product->thumbnail = 'images/' . $fileName;
 
-                // Make sure the destination directory exists
                 $destinationPath = __DIR__ . '/../../../Online-shop/public/db-img/';
                 if (!is_dir($destinationPath)) {
                     mkdir($destinationPath, 0777, true);
                 }
 
-                // make sure the file is an image
                 $allowed_files = ['png', 'jpg', 'jpeg'];
                 $extension = explode('.', $product->thumbnail);
                 $extension = end($extension);
                 if (in_array($extension, $allowed_files)) {
-                    // make sure image size is not too big
                     if ($_FILES['thumbnail']['size'] < 3000000) {
-                        // upload image
                         move_uploaded_file($tempFilePath, $destinationPath . $fileName);
                     } else {
                         $_SESSION['error_message'] = "File size is too big. Should be less than 3mb";
@@ -101,7 +106,6 @@ class ProductController
                 $_SESSION['error_message'] = "No image uploaded";
             }
 
-            // incase of error redirect back with form data
             if (isset($_SESSION['error_message'])) {
                 $_SESSION['product-data'] = $_POST;
                 header('location: ' . BASE_URL . 'product/add');
@@ -118,7 +122,11 @@ class ProductController
         }
     }
 
-
+    /**
+     * @showUpdateProductForm: show Update Product Form
+     * @getCategories: get category method
+     * @fetchProductById: fetch Product By Id method
+     */
     public function showUpdateProductForm()
     {
         $product_id = $_GET['id'];
@@ -128,30 +136,30 @@ class ProductController
         require_once __DIR__ . '/../Views/Products/updateProduct.php';
     }
 
+    /**
+     * @updateProduct: Update Product from database
+     * @update: update method
+     */
     public function updateProduct()
     {
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-            // Validate and sanitize input fields
 
             $product = new Product();
             $product->product_id = $_POST['product_id'];
-            $product->name = $_POST['name'];
-            $product->description = $_POST['description'];
-            $product->price = $_POST['price'];
-            $product->category_id = $_POST['category_id'];
-            $product->is_featured = $_POST['is_featured'];
-            $product->is_new = $_POST['is_new'];
+            $product->name = filter_input($_POST['name'], FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+            $product->description = filter_input($_POST['description'], FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+            $product->price = filter_input($_POST['price'], FILTER_SANITIZE_NUMBER_FLOAT);
+            $product->category_id = filter_input($_POST['category_id'], FILTER_SANITIZE_NUMBER_INT);
+            $product->is_featured = filter_input($_POST['is_featured'], FILTER_SANITIZE_NUMBER_INT);
+            $product->is_new = filter_input($_POST['is_new'], FILTER_SANITIZE_NUMBER_INT);
             $previous_thumbnail_path = $_POST['previous_thumbnail_name'];
 
             $previous_thumbnail_name = basename($previous_thumbnail_path);
-            // delete existing thumbnail if new one is uploaded
             $previous_thumbnail_full_path = __DIR__ . '/../../../Online-shop/public/db-img/' . $previous_thumbnail_name;
 
-            // Perform the deletion operation
             if (file_exists($previous_thumbnail_full_path)) {
                 try {
                     if (unlink($previous_thumbnail_full_path)) {
-                        // Successfully deleted
                         error_log("Image deleted successfully: $previous_thumbnail_full_path");
                     } else {
                         $error = error_get_last();
@@ -165,25 +173,19 @@ class ProductController
             }
 
             if ($_FILES['thumbnail']['error'] === UPLOAD_ERR_OK) {
-                // handle new image upload
                 $tempFilePath = $_FILES['thumbnail']['tmp_name'];
                 $fileName = $_FILES['thumbnail']['name'];
-                $product->thumbnail = 'images/' . $fileName; // Save relative path in the database
-
-                // Make sure the destination directory exists
+                $product->thumbnail = 'images/' . $fileName; 
                 $destinationPath = __DIR__ . '/../../../Online-shop/public/db-img/';
                 if (!is_dir($destinationPath)) {
                     mkdir($destinationPath, 0777, true);
                 }
 
-                // make sure the file is an image
                 $allowed_files = ['png', 'jpg', 'jpeg'];
                 $extension = explode('.', $product->thumbnail);
                 $extension = end($extension);
                 if (in_array($extension, $allowed_files)) {
-                    // make sure image size is not too big
                     if ($_FILES['thumbnail']['size'] < 3000000) {
-                        // upload image
                         move_uploaded_file($tempFilePath, $destinationPath . $fileName);
                     } else {
                         $_SESSION['error_message'] = "File size is too big. Should be less than 3mb";
@@ -195,7 +197,6 @@ class ProductController
                 $_SESSION['error_message'] = "No image uploaded";
             }
 
-            // Update the product and handle errors
             if (isset($_SESSION['error_message'])) {
                 header('location: ' . BASE_URL . 'product/update?id=' . $product->product_id);
                 die();
@@ -211,6 +212,12 @@ class ProductController
         }
     }
 
+    /**
+     * @showProductDetails: show Product Details page
+     * @fetchProductById: fetch Product By Id method
+     * @getFeaturedProducts: get Featured Products method
+     * @getLimitedProductReviews: get Limited Product Reviews method
+     */
     public function showProductDetails()
     {
         $product_id = $_GET['id'];
@@ -223,6 +230,10 @@ class ProductController
         require_once __DIR__ . '/../Views/Products/productDetails.php';
     }
 
+    /**
+     * @showReviewPage: show Review Page
+     * @getProductReviews: get Product Reviews method
+     */
     public function  showReviewPage()
     {
         $product_id = $_GET['id'];
@@ -233,13 +244,17 @@ class ProductController
         require_once __DIR__ . '/../Views/Products/reviews.php';
     }
 
+    /**
+     * @addReview: add Review 
+     * @addReview: add Review method
+     */
     public function addReview()
     {
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $user_id = $_SESSION['user_id'];
-            $product_id = $_POST['product_id'];
-            $rating = $_POST['rating'];
-            $review = $_POST['review'];
+            $product_id = filter_input($_POST['product_id'], FILTER_SANITIZE_NUMBER_INT);
+            $rating = filter_input($_POST['rating'], FILTER_SANITIZE_NUMBER_INT);
+            $review = filter_input($_POST['review'], FILTER_SANITIZE_FULL_SPECIAL_CHARS);
 
             $reviewModel = new Review;
             $result = $reviewModel->addReview($product_id, $user_id, $rating, $review);
@@ -252,6 +267,10 @@ class ProductController
         }
     }
 
+    /**
+     * @userSearch: user Search 
+     * @searchProducts: search Products method
+     */
     public function userSearch()
     {
         if ($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET['submit']) && isset($_GET['search'])) {

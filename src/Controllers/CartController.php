@@ -6,6 +6,12 @@ use OnlineShop\Models\PayPal;
 
 class CartController
 {
+    /**
+     * @execute: show cart page
+     * @getUserCartItems: get users cart items from database
+     * calculateTotal: calculate total amount
+     * return: void
+     */
     public function execute(): void
     {
         $user_id = $_SESSION['user_id'];
@@ -16,6 +22,11 @@ class CartController
         require_once __DIR__ . '/../Views/Cart/cart.php';
     }
 
+    /**
+     * @addProductToCart: add product to cart in database
+     * @addProduct: add product method
+     * addProductToOrder: add product to order table
+     */
     public function addProductToCart()
     {
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
@@ -28,7 +39,6 @@ class CartController
             $result = $cart->addProduct($user_id, $product_id, $size, $quantity);
 
             if ($result) {
-                // Add the product to the order as well
                 $orderController = new OrderController();
                 $orderController->addProductToOrder($size, $quantity, $product_id, $user_id);
 
@@ -39,15 +49,17 @@ class CartController
         }
     }
 
+    /**
+     * @calculateTotal: calculate total amount
+     * @getUserCartItems: get cart items from database
+     */
     public function calculateTotal()
     {
         $cartModel = new Cart();
         $userId = $_SESSION['user_id'];
 
-        // Get cart items for the logged-in user
         $cartItems = $cartModel->getUserCartItems($userId);
 
-        // Calculate the total cart amount
         $totalAmount = 0;
         foreach ($cartItems as $item) {
             $totalAmount += $item->subtotal;
@@ -56,6 +68,10 @@ class CartController
         return $totalAmount;
     }
 
+    /**
+     * @removeCartItem: remove items from cart
+     * @removeCartItem: remover items mtehod
+     */
     public function removeCartItem()
     {
         if ($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET['cart_id'])) {
@@ -76,6 +92,11 @@ class CartController
         }
     }
 
+    /**
+     * @showCheckoutPage: show checkout page
+     * @getUserCartItems: get user cart items to checkout
+     * return: void
+     */
     public function showCheckoutPage(): void
     {
         $cartModel = new Cart();
@@ -84,14 +105,16 @@ class CartController
         require_once __DIR__ . '/../Views/Cart/checkout.php';
     }
 
+    /**
+     * @processCheckout: process checkout
+     * @calculateTotal: calculate total method
+     * @createOrder: create order for paypal
+     */
     public function processCheckout()
     {
-        // Validate form data here
-
-        // Store form data in the session for further processing
+        
         $_SESSION['checkout_data'] = $_POST;
 
-        // Redirect to payment gateway based on selected payment method
         if ($_POST['payment_method'] === 'paypal') {
             $totalAmount = $this->calculateTotal();
             $returnUrl = 'http://localhost:3000/Online-shop/cart/success';
@@ -99,10 +122,8 @@ class CartController
             $paypal = new PayPal();
             $order = $paypal->createOrder($totalAmount, $returnUrl, 'USD');
             if (isset($order['id'])) {
-                // Store the PayPal order ID in the session
                 $_SESSION['paypal_order_id'] = $order['id'];
 
-                // Redirect user to PayPal payment page
                 header('Location: ' . $order['links'][1]['href']);
                 exit();
             } else {

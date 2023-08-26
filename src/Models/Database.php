@@ -2,16 +2,13 @@
 
 namespace OnlineShop\Models;
 
-ini_set('display_errors', 1);
-ini_set('display_startup_errors', 1);
-error_reporting(E_ALL);
-
-
-
 class Database
 {
     protected $pdo;
 
+    /**
+     * @__construct - connect to database
+     */
     public function __construct()
     {
         $configPath = __DIR__ . '/../../config/database.php';
@@ -30,7 +27,10 @@ class Database
             return null;
         }
     }
-    
+
+    /**
+     * @fetch : fetch specific data in a table from database
+     */
     public function fetch($query, $params = [])
     {
         try {
@@ -43,19 +43,25 @@ class Database
         }
     }
 
+    /**
+     * @fetchArray : fetch data in a table as an array from database
+     */
     public function fetchArray($query, $params = [])
     {
         try {
             $stmt = $this->pdo->prepare($query);
             $stmt->execute($params);
-            return $stmt->fetchAll(\PDO::FETCH_ASSOC); // Fetch all rows as associative arrays
+            return $stmt->fetchAll(\PDO::FETCH_ASSOC);
         } catch (\PDOException $e) {
             die('<p class="error">Query failed: ' . $e->getMessage() . '</p>');
             return null;
         }
     }
 
-
+    /**
+     * @fetchAll: fetch all data in a table from database
+     * return: array
+     */
     public function fetchAll($query, $params = []): array
     {
         try {
@@ -68,6 +74,10 @@ class Database
         }
     }
 
+    /**
+     * @insert: insert data to databse table
+     * return: bool
+     */
     public function insert($table, $data): bool
     {
         $columns = implode(', ', array_keys($data));
@@ -83,6 +93,10 @@ class Database
         return $stmt->execute();
     }
 
+    /**
+     * @update: update data in database table
+     * return: bool
+     */
     public function update($table, $data, $condition): bool
     {
         $set = '';
@@ -101,6 +115,10 @@ class Database
         return $stmt->execute();
     }
 
+    /**
+     * @delete: delete data from database table
+     * return: bool
+     */
     public function delete($query, $params = []): bool
     {
         try {
@@ -113,16 +131,25 @@ class Database
         }
     }
 
+    /**
+     * @beginTransaction
+     */
     public function beginTransaction()
     {
         return $this->pdo->beginTransaction();
     }
 
+    /**
+     * @commit
+     */
     public function commit()
     {
         return $this->pdo->commit();
     }
 
+    /**
+     * @rollBack
+     */
     public function rollBack()
     {
         return $this->pdo->rollBack();

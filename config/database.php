@@ -1,6 +1,6 @@
 <?php
 
-// config/database.php
+// database configuration
 
 return [
     'host' => 'localhost',

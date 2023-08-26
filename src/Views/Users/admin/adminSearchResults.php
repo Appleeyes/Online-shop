@@ -6,9 +6,6 @@ require_once __DIR__ . '/../../templates/navigation.php';
 ?>
 
 <section id="dashboard" class="padding-all">
-    <!-- Display success message and error message here -->
-    <!-- ... -->
-
     <div class="dashboard-container">
         <?php require_once __DIR__ . '/../../templates/aside.php'; ?>
         <main>

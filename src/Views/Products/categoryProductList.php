@@ -1,6 +1,5 @@
-<!-- categoryProducts.php -->
 <?php
-$activePage = 'products'; // Set the active page if needed
+$activePage = 'products'; 
 require_once __DIR__ . '/../templates/header.php';
 require_once __DIR__ . '/../templates/navigation.php';
 ?>
