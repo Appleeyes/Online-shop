@@ -1,0 +1,30 @@
+- index.php
+- config/
+  - database.php
+- app/
+  - Controllers/
+    - HomeController.php
+    - ProductController.php
+    - CartController.php
+    - UserController.php
+    - AdminController.php
+  - Models/
+    - Database.php
+    - User.php
+    - Product.php
+    - Order.php
+  - Views/
+    - home.php
+    - products.php
+    - cart.php
+    - login.php
+    - register.php
+    - admin/
+      - dashboard.php
+      - users.php
+      - products.php
+      - orders.php
+- public/
+  - css/
+  - js/
+  - images/
