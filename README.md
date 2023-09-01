@@ -37,10 +37,10 @@ Welcome to the Online Shop project! This project is a simple online shopping pla
 - `Online-shop`
   - `config/` - Configuration files
   - `public/` - Public assets directory
-  - `css/` - CSS files
-  - `js/` - JavaScript files
-  - `images/` - Constant images on the pages
-  - `db-img/` - Images from uploaded from pages to db
+    - `css/` - CSS files
+    - `js/` - JavaScript files
+    - `images/` - Constant images on the pages
+    - `db-img/` - Images from uploaded from pages to db
   - `src/` - Source code directory
     - `App/` - Contains router file
     - `Controllers/` - Contains controller classes
