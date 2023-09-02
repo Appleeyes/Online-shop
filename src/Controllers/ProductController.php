@@ -73,12 +73,12 @@ class ProductController
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
             $product = new Product();
-            $product->name = filter_input($_POST['name'], FILTER_SANITIZE_FULL_SPECIAL_CHARS);
-            $product->description = filter_input($_POST['description'], FILTER_SANITIZE_FULL_SPECIAL_CHARS);
-            $product->price = filter_input($_POST['price'], FILTER_SANITIZE_NUMBER_FLOAT);
-            $product->category_id = filter_input($_POST['category_id'], FILTER_SANITIZE_NUMBER_INT);
-            $product->is_featured = filter_input($_POST['is_featured'], FILTER_SANITIZE_NUMBER_INT);
-            $product->is_new = filter_input($_POST['is_new'], FILTER_SANITIZE_NUMBER_INT);
+            $product->name = filter_input(INPUT_POST, 'name', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+            $product->description = filter_input(INPUT_POST, 'description', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+            $product->price = filter_input(INPUT_POST, 'price', FILTER_SANITIZE_NUMBER_FLOAT);
+            $product->category_id = filter_input(INPUT_POST, 'category_id', FILTER_SANITIZE_NUMBER_INT);
+            $product->is_featured = filter_input(INPUT_POST, 'is_featured', FILTER_SANITIZE_NUMBER_INT);
+            $product->is_new = filter_input(INPUT_POST, 'is_new', FILTER_SANITIZE_NUMBER_INT);
 
             if ($_FILES['thumbnail']['error'] === UPLOAD_ERR_OK) {
                 $tempFilePath = $_FILES['thumbnail']['tmp_name'];
@@ -146,12 +146,12 @@ class ProductController
 
             $product = new Product();
             $product->product_id = $_POST['product_id'];
-            $product->name = filter_input($_POST['name'], FILTER_SANITIZE_FULL_SPECIAL_CHARS);
-            $product->description = filter_input($_POST['description'], FILTER_SANITIZE_FULL_SPECIAL_CHARS);
-            $product->price = filter_input($_POST['price'], FILTER_SANITIZE_NUMBER_FLOAT);
-            $product->category_id = filter_input($_POST['category_id'], FILTER_SANITIZE_NUMBER_INT);
-            $product->is_featured = filter_input($_POST['is_featured'], FILTER_SANITIZE_NUMBER_INT);
-            $product->is_new = filter_input($_POST['is_new'], FILTER_SANITIZE_NUMBER_INT);
+            $product->name = filter_input(INPUT_POST, 'name', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+            $product->description = filter_input(INPUT_POST, 'description', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+            $product->price = filter_input(INPUT_POST, 'price', FILTER_SANITIZE_NUMBER_FLOAT);
+            $product->category_id = filter_input(INPUT_POST, 'category_id', FILTER_SANITIZE_NUMBER_INT);
+            $product->is_featured = filter_input(INPUT_POST, 'is_featured', FILTER_SANITIZE_NUMBER_INT);
+            $product->is_new = filter_input(INPUT_POST, 'is_new', FILTER_SANITIZE_NUMBER_INT);
             $previous_thumbnail_path = $_POST['previous_thumbnail_name'];
 
             $previous_thumbnail_name = basename($previous_thumbnail_path);
@@ -252,9 +252,9 @@ class ProductController
     {
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $user_id = $_SESSION['user_id'];
-            $product_id = filter_input($_POST['product_id'], FILTER_SANITIZE_NUMBER_INT);
-            $rating = filter_input($_POST['rating'], FILTER_SANITIZE_NUMBER_INT);
-            $review = filter_input($_POST['review'], FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+            $product_id = filter_input(INPUT_POST, 'product_id', FILTER_SANITIZE_NUMBER_INT);
+            $rating = filter_input(INPUT_POST, 'rating', FILTER_SANITIZE_NUMBER_INT);
+            $review = filter_input(INPUT_POST, 'review', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
 
             $reviewModel = new Review;
             $result = $reviewModel->addReview($product_id, $user_id, $rating, $review);

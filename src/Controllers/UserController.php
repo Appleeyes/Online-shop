@@ -24,8 +24,8 @@ class UserController
     {
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $user = new User();
-            $user->fullname = filter_input($_POST['fullname'], FILTER_SANITIZE_FULL_SPECIAL_CHARS);
-            $user->email = filter_input($_POST['email'], FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+            $user->fullname = filter_input(INPUT_POST, 'fullname', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+            $user->email = filter_input(INPUT_POST, 'email', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
             $user->setPassword(password_hash($_POST['password'], PASSWORD_DEFAULT));
             $user->is_admin = ($_POST['is_admin'] = 0);
             $confirmPassword = $_POST['confirm_password'];
@@ -93,8 +93,8 @@ class UserController
     public function loginUser():void
     {
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-            $email = filter_input($_POST['email'], FILTER_SANITIZE_FULL_SPECIAL_CHARS);
-            $password = filter_input($_POST['password'], FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+            $email = filter_input(INPUT_POST, 'email', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+            $password = filter_input(INPUT_POST, 'password', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
 
             $user = new User();
             $userData = $user->getUserByEmail($email);
